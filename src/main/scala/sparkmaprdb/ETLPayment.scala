@@ -41,7 +41,7 @@ object ETLPayment {
   def main(args: Array[String]) {
 
     var pfile = "hdfs:///tmp/payments.csv"
-    var tableName: String = "/mapr/maprdemo.mapr.io/apps/payments"
+    var tableName: String = "/user/mapr/demo.mapr.com/tables/payments"
 
     if (args.length == 2) {
       pfile = args(0)

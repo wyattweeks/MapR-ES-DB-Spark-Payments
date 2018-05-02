@@ -57,8 +57,8 @@ object SparkKafkaConsumer {
   }
 
   def main(args: Array[String]) = {
-    var tableName: String = "/mapr/maprdemo.mapr.io/apps/payments"
-    var topicc: String = "/mapr/maprdemo.mapr.io/apps/paystream:payments"
+    var tableName: String = "/user/mapr/demo.mapr.com/tables/payments"
+    var topicc: String = "/user/mapr/demo.mapr.com/streams/paystream:payments"
 
     if (args.length == 2) {
       topicc = args(0)

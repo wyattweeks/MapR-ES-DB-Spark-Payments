@@ -19,7 +19,7 @@ public class MsgConsumer {
     public static void main(String[] args) throws IOException {
         configureConsumer(args);
 
-        String topic = "/mapr/maprdemo.mapr.io/apps/paystream:payments";
+        String topic = "/user/mapr/demo.mapr.com/streams/paystream:payments";
         if (args.length == 1) {
             topic = args[0];
         }

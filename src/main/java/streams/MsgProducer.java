@@ -18,7 +18,7 @@ public class MsgProducer {
     public static void main(String[] args) throws Exception {
 
         // Set the default stream and topic to publish to.
-        String topic = "/mapr/maprdemo.mapr.io/apps/paystream:payments";
+        String topic = "/user/mapr/demo.mapr.com/streams/paystream:payments";
         // String fileName = "hdfs:///user/mapr/payments.csv";
         String fileName = "./data/payments.csv";
 

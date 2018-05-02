@@ -41,7 +41,7 @@ object QueryPayment {
 
   def main(args: Array[String]) {
 
-    var tableName: String = "/mapr/maprdemo.mapr.io/apps/payments"
+    var tableName: String = "/user/mapr/demo.mapr.com/tables/payments"
     if (args.length == 1) {
       tableName = args(0)
     } else {
