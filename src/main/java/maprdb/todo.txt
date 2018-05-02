@@ -1,0 +1,4 @@
+need to check user pwd in these files
+and change drill config:
+private static String DRILL_JDBC_URL = "jdbc:drill:zk=maprdemo:5181/drill/maprdemo.mapr.io-drillbits";
+

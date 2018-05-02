@@ -100,7 +100,7 @@ y
 #`mapr-es-db-spark-payment/target/mapr-es-db-spark-payment-1.0.jar`
 # `mapr-es-db-spark-payment/target/mapr-es-db-spark-payment-1.0-jar-with-dependencies.jar`
 
-cd MapR-ES-DB-Spark-Payments
+cd ~/MapR-ES-DB-Spark-Payments
 mvn clean install
 
 
@@ -114,8 +114,126 @@ java -cp ./target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProduce
 You can wait for the java client to finish, or from a separate mac terminal you can run the spark streaming consumer with the following command, 
 #or you can run from your IDE :
 #You can optionally pass the topic and table as input parameters <topic table> 
-cd MapR-ES-DB-Spark-Payments
+cd ~/MapR-ES-DB-Spark-Payments
 java -cp ./target/mapr-es-db-spark-payment-1.0-jar-with-dependencies.jar:./target/* streaming.SparkKafkaConsumer
 
 
 
+mapr@edge-5d5bbc5544-sbgs4:~/MapR-ES-DB-Spark-Payments$ java -cp ./target/mapr-es-db-spark-payment-1.0-jar-with-dependencies.jar:./target/* streaming.SparkKafkaConsumer
+Using hard coded parameters unless you specify the consume topic and table. <topic table>
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+18/05/02 21:09:44 INFO SparkContext: Running Spark version 2.1.0-mapr-1710
+18/05/02 21:09:45 INFO log: Logging initialized @2097ms
+18/05/02 21:09:45 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+18/05/02 21:09:46 INFO SecurityManager: Changing view acls to: mapr
+18/05/02 21:09:46 INFO SecurityManager: Changing modify acls to: mapr
+18/05/02 21:09:46 INFO SecurityManager: Changing view acls groups to:
+18/05/02 21:09:46 INFO SecurityManager: Changing modify acls groups to:
+18/05/02 21:09:46 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(mapr); groups with view permissions: Set(); users  with modify permissions: Set(mapr); groups with modify permissions: Set()
+18/05/02 21:09:46 INFO Utils: Successfully started service 'sparkDriver' on port 40540.
+18/05/02 21:09:46 INFO SparkEnv: Registering MapOutputTracker
+18/05/02 21:09:46 INFO SparkEnv: Registering BlockManagerMaster
+18/05/02 21:09:46 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+18/05/02 21:09:46 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+18/05/02 21:09:46 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-027fa3a8-5154-41e3-9748-e16a4c092501
+18/05/02 21:09:46 INFO MemoryStore: MemoryStore started with capacity 12.4 GB
+18/05/02 21:09:46 INFO SparkEnv: Registering OutputCommitCoordinator
+18/05/02 21:09:46 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+18/05/02 21:09:46 INFO SparkUI: Bound SparkUI to 0.0.0.0, and started at http://10.233.90.225:4040
+18/05/02 21:09:46 INFO Executor: Starting executor ID driver on host localhost
+18/05/02 21:09:46 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 34977.
+18/05/02 21:09:46 INFO NettyBlockTransferService: Server created on 10.233.90.225:34977
+18/05/02 21:09:46 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+18/05/02 21:09:46 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 10.233.90.225, 34977, None)
+18/05/02 21:09:46 INFO BlockManagerMasterEndpoint: Registering block manager 10.233.90.225:34977 with 12.4 GB RAM, BlockManagerId(driver, 10.233.90.225, 34977, None)
+18/05/02 21:09:46 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 10.233.90.225, 34977, None)
+18/05/02 21:09:46 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 10.233.90.225, 34977, None)
+-------------------------------------------
+Time: 1525295388000 ms
+-------------------------------------------
+PaymentwId(132655_02/12/2016_346039438,132655,02/12/2016,DFINE, Inc,90.87,Allopathic & Osteopathic Physicians|Radiology|Diagnostic Radiology,Food and Beverage)
+PaymentwId(132655_02/13/2016_346039440,132655,02/13/2016,DFINE, Inc,23.45,Allopathic & Osteopathic Physicians|Radiology|Diagnostic Radiology,Food and Beverage)
+PaymentwId(1006832_02/13/2016_346039442,1006832,02/13/2016,DFINE, Inc,32.0,Allopathic & Osteopathic Physicians|Radiology|Vascular & Interventional Radiology,Travel and Lodging)
+...
+
+18/05/02 21:09:49 ERROR JobScheduler: Error running job streaming job 1525295388000 ms.1
+com.mapr.db.exceptions.DBException: tableExists() failed.,
+        at com.mapr.db.exceptions.ExceptionHandler.handle(ExceptionHandler.java:65)
+        at com.mapr.db.impl.AdminImpl.tableExists(AdminImpl.java:318)
+        at com.mapr.db.impl.AdminImpl.tableExists(AdminImpl.java:307)
+        at com.mapr.db.impl.MapRDBImpl.tableExists(MapRDBImpl.java:56)
+        at com.mapr.db.spark.dbclient.DBOlderClientImpl$.tableExists(DBOlderClientImpl.scala:43)
+        at com.mapr.db.spark.utils.MapRDBUtils$.checkOrCreateTable(MapRDBUtils.scala:24)
+        at com.mapr.db.spark.RDD.DocumentRDDFunctions.saveToMapRDBInternal(DocumentRDDFunctions.scala:34)
+        at com.mapr.db.spark.RDD.OJAIDocumentRDDFunctions.saveToMapRDB(DocumentRDDFunctions.scala:61)
+        at com.mapr.db.spark.streaming.DStreamFunctions$$anonfun$saveToMapRDB$3.apply(DStreamFunctions.scala:25)
+        at com.mapr.db.spark.streaming.DStreamFunctions$$anonfun$saveToMapRDB$3.apply(DStreamFunctions.scala:25)
+        at org.apache.spark.streaming.dstream.DStream$$anonfun$foreachRDD$1$$anonfun$apply$mcV$sp$3.apply(DStream.scala:627)
+        at org.apache.spark.streaming.dstream.DStream$$anonfun$foreachRDD$1$$anonfun$apply$mcV$sp$3.apply(DStream.scala:627)
+        at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1$$anonfun$apply$mcV$sp$1.apply$mcV$sp(ForEachDStream.scala:51)
+        at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1$$anonfun$apply$mcV$sp$1.apply(ForEachDStream.scala:51)
+        at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1$$anonfun$apply$mcV$sp$1.apply(ForEachDStream.scala:51)
+        at org.apache.spark.streaming.dstream.DStream.createRDDWithLocalProperties(DStream.scala:415)
+        at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1.apply$mcV$sp(ForEachDStream.scala:50)
+        at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1.apply(ForEachDStream.scala:50)
+        at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1.apply(ForEachDStream.scala:50)
+        at scala.util.Try$.apply(Try.scala:191)
+        at org.apache.spark.streaming.scheduler.Job.run(Job.scala:39)
+        at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler$$anonfun$run$1.apply$mcV$sp(JobScheduler.scala:254)
+        at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler$$anonfun$run$1.apply(JobScheduler.scala:254)
+        at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler$$anonfun$run$1.apply(JobScheduler.scala:254)
+        at scala.util.DynamicVariable.withValue(DynamicVariable.scala:58)
+        at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler.run(JobScheduler.scala:253)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        at java.lang.Thread.run(Thread.java:748)
+Caused by: java.io.IOException: Could not create FileClient
+        at com.mapr.fs.MapRFileSystem.lookupClient(MapRFileSystem.java:643)
+        at com.mapr.fs.MapRFileSystem.lookupClient(MapRFileSystem.java:696)
+        at com.mapr.fs.MapRFileSystem.getTableProperties(MapRFileSystem.java:3937)
+        at com.mapr.db.impl.AdminImpl.tableExists(AdminImpl.java:313)
+        ... 27 more
+Caused by: java.io.IOException: Could not create FileClient
+        at com.mapr.fs.MapRClientImpl.<init>(MapRClientImpl.java:136)
+        at com.mapr.fs.MapRFileSystem.lookupClient(MapRFileSystem.java:637)
+        ... 30 more
+Exception in thread "main" com.mapr.db.exceptions.DBException: tableExists() failed.,
+        at com.mapr.db.exceptions.ExceptionHandler.handle(ExceptionHandler.java:65)
+        at com.mapr.db.impl.AdminImpl.tableExists(AdminImpl.java:318)
+        at com.mapr.db.impl.AdminImpl.tableExists(AdminImpl.java:307)
+        at com.mapr.db.impl.MapRDBImpl.tableExists(MapRDBImpl.java:56)
+        at com.mapr.db.spark.dbclient.DBOlderClientImpl$.tableExists(DBOlderClientImpl.scala:43)
+        at com.mapr.db.spark.utils.MapRDBUtils$.checkOrCreateTable(MapRDBUtils.scala:24)
+        at com.mapr.db.spark.RDD.DocumentRDDFunctions.saveToMapRDBInternal(DocumentRDDFunctions.scala:34)
+        at com.mapr.db.spark.RDD.OJAIDocumentRDDFunctions.saveToMapRDB(DocumentRDDFunctions.scala:61)
+        at com.mapr.db.spark.streaming.DStreamFunctions$$anonfun$saveToMapRDB$3.apply(DStreamFunctions.scala:25)
+        at com.mapr.db.spark.streaming.DStreamFunctions$$anonfun$saveToMapRDB$3.apply(DStreamFunctions.scala:25)
+        at org.apache.spark.streaming.dstream.DStream$$anonfun$foreachRDD$1$$anonfun$apply$mcV$sp$3.apply(DStream.scala:627)
+        at org.apache.spark.streaming.dstream.DStream$$anonfun$foreachRDD$1$$anonfun$apply$mcV$sp$3.apply(DStream.scala:627)
+        at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1$$anonfun$apply$mcV$sp$1.apply$mcV$sp(ForEachDStream.scala:51)
+        at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1$$anonfun$apply$mcV$sp$1.apply(ForEachDStream.scala:51)
+        at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1$$anonfun$apply$mcV$sp$1.apply(ForEachDStream.scala:51)
+        at org.apache.spark.streaming.dstream.DStream.createRDDWithLocalProperties(DStream.scala:415)
+        at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1.apply$mcV$sp(ForEachDStream.scala:50)
+        at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1.apply(ForEachDStream.scala:50)
+        at org.apache.spark.streaming.dstream.ForEachDStream$$anonfun$1.apply(ForEachDStream.scala:50)
+        at scala.util.Try$.apply(Try.scala:191)
+        at org.apache.spark.streaming.scheduler.Job.run(Job.scala:39)
+        at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler$$anonfun$run$1.apply$mcV$sp(JobScheduler.scala:254)
+        at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler$$anonfun$run$1.apply(JobScheduler.scala:254)
+        at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler$$anonfun$run$1.apply(JobScheduler.scala:254)
+        at scala.util.DynamicVariable.withValue(DynamicVariable.scala:58)
+        at org.apache.spark.streaming.scheduler.JobScheduler$JobHandler.run(JobScheduler.scala:253)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        at java.lang.Thread.run(Thread.java:748)
+Caused by: java.io.IOException: Could not create FileClient
+        at com.mapr.fs.MapRFileSystem.lookupClient(MapRFileSystem.java:643)
+        at com.mapr.fs.MapRFileSystem.lookupClient(MapRFileSystem.java:696)
+        at com.mapr.fs.MapRFileSystem.getTableProperties(MapRFileSystem.java:3937)
+        at com.mapr.db.impl.AdminImpl.tableExists(AdminImpl.java:313)
+        ... 27 more
+Caused by: java.io.IOException: Could not create FileClient
+        at com.mapr.fs.MapRClientImpl.<init>(MapRClientImpl.java:136)
+        at com.mapr.fs.MapRFileSystem.lookupClient(MapRFileSystem.java:637)
+        ... 30 more

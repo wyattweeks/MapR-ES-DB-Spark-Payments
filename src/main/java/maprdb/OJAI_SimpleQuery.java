@@ -20,7 +20,7 @@ public class OJAI_SimpleQuery {
 
     public static void main(String[] args) {
         //Full path including namespace /mapr/<cluster-name>/apps/
-        String tableName = "/mapr/maprdemo.mapr.io/apps/payments";
+        String tableName = "/user/mapr/demo.mapr.com/tables/payments";
         if (args.length == 1) {
             tableName = args[0];
 

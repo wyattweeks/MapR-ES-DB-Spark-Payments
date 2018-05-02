@@ -21,7 +21,7 @@ public class DRILL_SimpleQuery {
     private static String DRILL_JDBC_URL = "jdbc:drill:zk=maprdemo:5181/drill/maprdemo.mapr.io-drillbits";
 
     public static void main(String[] args) {
-        String tableName = "/mapr/maprdemo.mapr.io/apps/payments";
+        String tableName = "/user/mapr/demo.mapr.com/tables/payments";
         if (args.length == 1) {
             tableName = args[0];
 
