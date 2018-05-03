@@ -34,7 +34,7 @@ public class DRILL_SimpleQuery {
             //Username and password have to be provided to obtain connection.
             //Ensure that the user provided is present in the cluster / sandbox
             //WW added pwd
-            Connection connection = DriverManager.getConnection(DRILL_JDBC_URL, "mapr", "maprmapr");
+            Connection connection = DriverManager.getConnection(DRILL_JDBC_URL, "mapr", "");
 
             Statement statement = connection.createStatement();
             System.out.println("Top 10 physician specialties by total payments");

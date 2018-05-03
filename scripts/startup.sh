@@ -154,8 +154,10 @@ copy paste  from the scripts/sparkshell file to query MapR-DB
 #From your mac in the mapr-es-db-spark-payment directory you can run the java client to query the MapR-DB table using Drill-JDBC 
 #or you can run from your IDE :
 # WW -changed to run in dsr-demo
-$ java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:~/MapR-ES-DB-Spark-Payments/target/* maprdb.DRILL_SimpleQuery
-#
+#$ java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:~/MapR-ES-DB-Spark-Payments/target/* maprdb.DRILL_SimpleQuery
+cd /opt/mapr/spark/spark-2.2.1/bin
+./spark-submit --class maprdb.DRILL_SimpleQuery --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
+./spark-submit --class maprdb.DRILL_SimpleQuery --master local[2] --jars /opt/mapr/drill/jars/jdbc-driver/drill-jdbc-all-1.11.0.jar ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 #### 5. Working with OJAI
 
