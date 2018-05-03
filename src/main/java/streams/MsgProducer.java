@@ -20,7 +20,7 @@ public class MsgProducer {
         // Set the default stream and topic to publish to.
         String topic = "/user/mapr/demo.mapr.com/streams/paystream:payments";
         // String fileName = "hdfs:///user/mapr/payments.csv";
-        String fileName = "./data/payments.csv";
+        String fileName = "~/MapR-ES-DB-Spark-Payments/data/payments.csv";
 
         if (args.length == 2) {
             fileName = args[0];

@@ -17,8 +17,8 @@ public class DRILL_SimpleQuery {
      * Can specify connection URL in 2 ways. 1. Connect to Zookeeper -
      * "jdbc:drill:zk=<hostname/host-ip>:5181/drill/<cluster-name>-drillbits" 2.
      * Connect to Drillbit - "jdbc:drill:drillbit=<hostname>"
-     */
-    private static String DRILL_JDBC_URL = "jdbc:drill:zk=maprdemo:5181/drill/maprdemo.mapr.io-drillbits";
+     * WW - changed from jdbc:drill:zk=maprdemo:5181/drill/maprdemo.mapr.io-drillbits */
+    private static String DRILL_JDBC_URL = "jdbc:drill:zk=mapr-zk:5181/drill/dsr-demo";
 
     public static void main(String[] args) {
         String tableName = "/user/mapr/demo.mapr.com/tables/payments";
@@ -33,7 +33,8 @@ public class DRILL_SimpleQuery {
             Class.forName(JDBC_DRIVER);
             //Username and password have to be provided to obtain connection.
             //Ensure that the user provided is present in the cluster / sandbox
-            Connection connection = DriverManager.getConnection(DRILL_JDBC_URL, "mapr", "");
+            //WW added pwd
+            Connection connection = DriverManager.getConnection(DRILL_JDBC_URL, "mapr", "maprmapr");
 
             Statement statement = connection.createStatement();
             System.out.println("Top 10 physician specialties by total payments");
