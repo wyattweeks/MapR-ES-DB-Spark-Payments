@@ -18,7 +18,7 @@ public class DRILL_SimpleQuery {
      * "jdbc:drill:zk=<hostname/host-ip>:5181/drill/<cluster-name>-drillbits" 2.
      * Connect to Drillbit - "jdbc:drill:drillbit=<hostname>"
      * WW - changed from jdbc:drill:zk=maprdemo:5181/drill/maprdemo.mapr.io-drillbits */
-    private static String DRILL_JDBC_URL = "jdbc:drill:zk=mapr-zk:5181/drill/dsr-demo";
+    private static String DRILL_JDBC_URL = "jdbc:drill:zk=mapr-zk:5181/drill/dsr-demo-drillbits";
 
     public static void main(String[] args) {
         String tableName = "/user/mapr/demo.mapr.com/tables/payments";
