@@ -107,27 +107,32 @@ cd ~/MapR-ES-DB-Spark-Payments # change to public data
 mvn clean install
 
 # then mkdir ~/MapR-ES-DB-Spark-Payments
-#copy jars from public data to 
-
+# create new directory on edge node ~/MapR-ES-DB-Spark-Payments
+mkdir
+#copy MapR-ES-DB-Spark-Payments folder form public_data to ~/MapR-ES-DB-Spark-Payments
+cp
+#copy payments.csv from public_data - /MapR-ES-DB-Spark-Payments/data to 'files' volume (for show only - csv in ~/MapR-ES-DB-Spark-Payments will be used for producer)
+cp 
 
 
 ##Run the java publisher and the Spark consumer**
-
-#This client will read lines from the file in ./data/payments.csv and publish them to the topic /apps/paystream:payments. 
+#This client will read lines from the file in ~/MapR-ES-DB-Spark-Payments/data/payments.csv and publish them to the topic /streams/paystream:payments. 
 #You can optionally pass the file and topic as input parameters <file topic> 
 java -cp ./target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
 
-###This spark streaming client will consume from the topic /apps/paystream:payments and write to the table /apps/payments.
-You can wait for the java client to finish, or from a separate mac terminal you can run the spark streaming consumer with the following command, 
-#or you can run from your IDE :
+###This spark streaming client will consume from the topic /streams/paystream:payments and write to the table /tables/payments.
+# You can wait for the java client to finish, or from a separate terminal you can run the spark streaming consumer with the following command
 #You can optionally pass the topic and table as input parameters <topic table> 
-cd /opt/mapr/spark/spark-2.2.1/bin
-# use chads code to detect spark bin
+
+# use chads code to detect spark bin to point to spark submit script loc
 #SPARK_VERSION=`apt-cache policy mapr-spark | grep Installed | awk '{print$2}' | cut -c 1-5`
 #SPARK_PATH="/opt/mapr/opentsdb/opentsdb-$SPARK_VERSION"
 #SPARK_VERSION=`apt-cache policy mapr-spark | grep Installed | awk '{print$2}' | cut -c 1-5`
 #SPARK_PATH="/opt/mapr/spark/spark-$SPARK_VERSION"
 #./$SPARK_PATH/bin/spark-submit
 #./spark-submit --class streaming.SparkKafkaConsumer --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
+cd /opt/mapr/spark/spark-2.2.1/bin
 ./spark-submit --class streaming.SparkKafkaConsumer --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
+
+
 
