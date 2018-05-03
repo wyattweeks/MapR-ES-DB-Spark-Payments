@@ -94,10 +94,10 @@ curl -sSk -X POST -u 'mapr:maprmapr' "https://dsr-demo-pbmggt.se.corp.maprtech.c
 curl -sSk -X POST -u 'mapr:maprmapr' "https://dsr-demo-pbmggt.se.corp.maprtech.com:8443/rest/table/create?path=/user/mapr/demo.mapr.com/tables/payments&tabletype=json&defaultreadperm=p&defaultwriteperm=p"
 
 # need to install git and clone project (may need to do install 2x?) - do once on public_data, but may want to refresh and rebuild jars on startup
-# if needed sudo apt-get -y install git
+# if needed sudo apt-get install -y git
 # on public_data - set wd
 # git clone http://git.se.corp.maprtech.com/wweeks/MapR-ES-DB-Spark-Payments.git
-# sudo apt-get - y install maven 
+# sudo apt-get install -y maven 
 
 # Create the following jars from git project
 #`mapr-es-db-spark-payment/target/mapr-es-db-spark-payment-1.0.jar`
@@ -142,20 +142,20 @@ cd /opt/mapr/spark/spark-2.2.1/bin
 cd /opt/mapr/spark/spark-2.2.1/bin
 ./spark-submit --class sparkmaprdb.QueryPayment --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
+# this part is an option to the step above
 # in a sparate terminal window, start the spark shell with this command
 # add paramenter to spark version
 # need to automate the 'copy paste step below'
-$ /opt/mapr/spark/spark-2.1.0/bin/spark-shell --master local[2]
+$ /opt/mapr/spark/spark-2.2.1/bin/spark-shell --master local[2]
 copy paste  from the scripts/sparkshell file to query MapR-DB
 
 #### 4. Working with Drill-JDBC
 
-From your mac in the mapr-es-db-spark-payment directory you can run the java client to query the MapR-DB table using Drill-JDBC 
-or you can run from your IDE :
-
-```
-$ java -cp ./target/mapr-es-db-spark-payment-1.0.jar:./target/* maprdb.DRILL_SimpleQuery
-```
+#From your mac in the mapr-es-db-spark-payment directory you can run the java client to query the MapR-DB table using Drill-JDBC 
+#or you can run from your IDE :
+# WW -changed to run in dsr-demo
+$ java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:~/MapR-ES-DB-Spark-Payments/target/* maprdb.DRILL_SimpleQuery
+#
 
 #### 5. Working with OJAI
 
@@ -206,49 +206,32 @@ find /apps/payments --where '{ "$like" : {"_id":"%_02/%"} }' --f _id,amount
 maprdb mapr:> find /apps/payments --where '{ "$eq" : {"payer":"Mission Pharmacal Company"} }' --f _id,payer,amount,nature_of_payment
 ```
 
-**Use Drill Shell to query MapR-DB**
+#  Use Drill Shell to query MapR-DB  
+#From an edge node terminal, connect to Drill as user mapr through JDBC by running sqlline:
+# this is CM's original cmd: /opt/mapr/drill/drill-1.11.0/bin/sqlline -u "jdbc:drill:drillbit=localhost" -n mapr
+# WW - for dsr-demo, on edge node just: 
+sqlline
+# 0: jdbc:drill:zk=mapr-zk:5181/drill/dsr-demo->
+# WW - changed these to work with dsr-demo
+# 1 - Top 5 Physician Ids by Amount**
+select physician_id, sum(amount) as revenue from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_id order by revenue desc limit 5;
+# 2 - Top 5 nature of payments by Amount**
+select nature_of_payment,  sum(amount) as total from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by nature_of_payment order by total desc limit 5;
+# 3 - Query for payments for physician id**
+select _id,  amount from dfs.`/user/mapr/demo.mapr.com/tables/payments` where _id like '98485%';
+# 4 - Query for payments in february**
+select _id,  amount from dfs.`/user/mapr/demo.mapr.com/tables/payments` where _id like '%[_]02/%';
+# 5 - Queries on payer**
+select _id, amount, payer from dfs.`/user/mapr/demo.mapr.com/tables/payments` where payer='CorMatrix Cardiovascular Inc.';
+select _id, amount, payer from dfs.`/user/mapr/demo.mapr.com/tables/payments` where payer like '%Dental%';
+select  distinct(payer) from dfs.`/user/mapr/demo.mapr.com/tables/payments`;
 
-From your mac terminal connect to Drill as user mapr through JDBC by running sqlline:
-/opt/mapr/drill/drill-1.11.0/bin/sqlline -u "jdbc:drill:drillbit=localhost" -n mapr
-# on edge node just: $sqlline
-
-**Query document with Condition _id has february**
-
-**Who are top 5 Physician Ids by Amount**
-```
-0: jdbc:drill:drillbit=localhost> select physician_id, sum(amount) as revenue from dsr-demo.'/user/mapr/demo.mapr.com/tables/payments' group by physician_id order by revenue desc limit 5;
-```
-**What are top 5 nature of payments by Amount**
-```
-0: jdbc:drill:drillbit=localhost> select nature_of_payment,  sum(amount) as total from dfs.`/apps/payments` group by nature_of_payment order by total desc limit 5;
-```
-**Query for payments for physician id**
-```
-0: jdbc:drill:drillbit=localhost> select _id,  amount from dfs.`/apps/payments` where _id like '98485%';
-```
-**Query for payments in february**
-```
-0: jdbc:drill:drillbit=localhost> select _id,  amount from dfs.`/apps/payments` where _id like '%[_]02/%';
-```
-**Queries on payer**
-```
-0: jdbc:drill:drillbit=localhost> select _id, amount, payer from dfs.`/apps/payments` where payer='CorMatrix Cardiovascular Inc.';
-
-0: jdbc:drill:drillbit=localhost> select _id, amount, payer from dfs.`/apps/payments` where payer like '%Dental%';
-
-0: jdbc:drill:drillbit=localhost> select  distinct(payer) from dfs.`/apps/payments` ;
-```
-
-
-#### 7. Adding a secondary index to improve queries
-
-Let's now add indices to the payments table.
-
-In a docker container terminal window:
-
-```
+#### 7. Adding a secondary index to the payments JSON table, to speed up queries
+# Let's now add indices to the payments table.
+# In a terminal window:
+need to convert this to REST
 $ maprcli table index add -path /apps/payments -index idx_payer -indexedfields 'payer:1'
-```
+
 In MapR-DB Shell, try queries on payments payers and compare with previous query performance:
 ```
 maprdb mapr:> find /apps/payments --where '{ "$eq" : {"payer":"Mission Pharmacal Company"} }' --f _id,payer,amount,nature_of_payment
