@@ -113,3 +113,22 @@ mkdir
 cp 
 #copy payments.csv from public_data - /MapR-ES-DB-Spark-Payments/data to 'files' volume (for show only - csv in ~/MapR-ES-DB-Spark-Payments will be used for producer)
 cp 
+
+##Run the java publisher and the Spark consumer**
+#This client will read lines from the file in ~/MapR-ES-DB-Spark-Payments/data/payments.csv and publish them to the topic /streams/paystream:payments. 
+#You can optionally pass the file and topic as input parameters <file topic> 
+java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
+
+###This spark streaming client will consume from the topic /streams/paystream:payments and write to the table /tables/payments.
+# You can wait for the java client to finish, or from a separate terminal you can run the spark streaming consumer with the following command
+#You can optionally pass the topic and table as input parameters <topic table> 
+
+# use chads code to detect spark bin to point to spark submit script loc
+#SPARK_VERSION=`apt-cache policy mapr-spark | grep Installed | awk '{print$2}' | cut -c 1-5`
+#SPARK_PATH="/opt/mapr/opentsdb/opentsdb-$SPARK_VERSION"
+#SPARK_VERSION=`apt-cache policy mapr-spark | grep Installed | awk '{print$2}' | cut -c 1-5`
+#SPARK_PATH="/opt/mapr/spark/spark-$SPARK_VERSION"
+#./$SPARK_PATH/bin/spark-submit
+#./spark-submit --class streaming.SparkKafkaConsumer --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
+cd /opt/mapr/spark/spark-2.2.1/bin
+./spark-submit --class streaming.SparkKafkaConsumer --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
