@@ -27,6 +27,14 @@
 DEMO: STEP-BY-STEP
 ###
 
+## 0 - Complete demo setup on edge node and cluster
+# 
+# ssh to edge node as mapr, and 
+cd /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/scripts
+chmod 667 demosetup.sh
+./demosetup.sh
+
+
 ## 1 - Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
 #
 # This java publisher client will read lines from the payments.csv and publish them in the same format (comma-delimited strings)
@@ -62,7 +70,7 @@ java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./t
 # Note: if spark version changes, change path in 'cd' cmd below
 # ssh to the cluster edge node as mapr and:
 #
-cd /opt/mapr/spark/spark-2.2.1/bin
+cd $SPARK_PATH/bin
 ./spark-submit --class streaming.SparkKafkaConsumer --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
@@ -71,7 +79,7 @@ cd /opt/mapr/spark/spark-2.2.1/bin
 # ssh to the cluster edge node as mapr and:
 # Note: if spark version changes, change path in 'cd' cmd below
 #
-cd /opt/mapr/spark/spark-2.2.1/bin
+cd $SPARK_PATH/bin
 ./spark-submit --class sparkmaprdb.QueryPayment --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
@@ -80,7 +88,7 @@ cd /opt/mapr/spark/spark-2.2.1/bin
 # Show the Top 10 physician specialties by total payments
 # Query = select physician_specialty,sum(amount) as total from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_specialty order by total desc limit 10
 #
-cd /opt/mapr/spark/spark-2.2.1/bin
+cd $SPARK_PATH/bin
 ./spark-submit --class maprdb.DRILL_SimpleQuery --master local[2] --jars /opt/mapr/drill/jars/jdbc-driver/drill-jdbc-all-1.11.0.jar ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
@@ -88,6 +96,7 @@ cd /opt/mapr/spark/spark-2.2.1/bin
 # OJAI, the Java API used to access MapR-DB JSON, leverages the same query engine as MapR-DB Shell and Apache Drill to query payments table
 # Query the MapR-DB payments table using OJAI
 # original java version (old) $ java -cp ./target/mapr-es-db-spark-payment-1.0.jar:./target/* maprdb.OJAI_SimpleQuery
+cd $SPARK_PATH/bin
 ./spark-submit --class maprdb.OJAI_SimpleQuery --master local[2] --jars /opt/mapr/drill/jars/jdbc-driver/drill-jdbc-all-1.11.0.jar ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 

@@ -24,7 +24,7 @@ echo "Running Custom MAPR Demo setup for /public_data/demos_healthcare/MapR-ES-D
 
 #Run custom job actions
 
-MCS_HOST=${MAPR_CLDB_HOSTS:-mapr-cldb}
+MCS_HOST=${MAPR_CLDB_HOSTS:cldb}
 MCS_PORT=${MCS_PORT:-8443}
 MCS_URL="https://${MCS_HOST}:${MCS_PORT}"
 MAPR_ADMIN=${MAPR_ADMIN:-mapr}
