@@ -1,8 +1,6 @@
 
 to finish project:
 - add images and narrative from carol's blog to demo / readme doc
-- Del DemoInteractiveQueries.txt
-- gitnore or remove custom-jobs.old.sh when Done 
 - learn query syntax for db-shell in #6 readme  
 - get this working (add after #3 in the readme)
     # this part - Spark SQL - is an OPTION to the step above
