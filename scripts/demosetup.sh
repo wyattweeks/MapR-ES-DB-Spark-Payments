@@ -28,7 +28,7 @@ MCS_HOST=${MAPR_CLDB_HOSTS:-cldb}
 MCS_PORT=${MCS_PORT:-8443}
 MCS_URL="https://${MCS_HOST}:${MCS_PORT}"
 MAPR_ADMIN=${MAPR_ADMIN:-mapr}
-MAPR_ADMIN_PASSWORD=${MAPR_ADMIN_PASSWORD:-mapr522301}
+MAPR_ADMIN_PASSWORD=${MAPR_ADMIN_PASSWORD:-maprmapr}
 
 chk_str="Waiting ..."
 
@@ -38,7 +38,7 @@ check_cluster(){
 		return 1
 	fi
 
-	find_cldb="curl -sSk -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} ${MCS_URL}/rest/node/cldbmaster"
+	find_cldb=curl -sSk -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/node/cldbmaster"
 	if [ "$($find_cldb | jq -r '.status')" = "OK" ]; then
 		return 0
 	else
