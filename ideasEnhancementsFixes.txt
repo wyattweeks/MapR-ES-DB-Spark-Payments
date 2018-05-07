@@ -1,9 +1,9 @@
 
 to finish project:
-- fix spark env variable in demosetup.sh
 - add images and narrative from carol's blog to demo / readme doc
 - Del DemoInteractiveQueries.txt
 - gitnore or remove custom-jobs.old.sh when Done 
+- learn query syntax for db-shell in #6 readme  
 - get this working (add after #3 in the readme)
     # this part - Spark SQL - is an OPTION to the step above
     # in a sparate terminal window, start the spark shell with this command
@@ -11,6 +11,8 @@ to finish project:
     # need to automate the 'copy paste step below'
     #$ /opt/mapr/spark/spark-2.2.1/bin/spark-shell --master local[2]
     #copy paste  from the scripts/sparkshell file to query MapR-DB
+# WW - FUTURE enhancement - add Drill query on Mapr-ES
+# get cluster check script to work in demosetup.sh (currently commented out)
 
 
 create multiple topics, so can run 3 consumers / 2 producers --- amend demosetup.sh to create additional topics AND readme script to 

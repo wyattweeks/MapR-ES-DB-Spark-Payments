@@ -47,8 +47,8 @@ chmod 667 demosetup.sh
 # For presentation purposes, you may start a second producer client manually, from a separate terminal window
 # ssh to the cluster edge node as mapr and:
 #
-cd ~/MapR-ES-DB-Spark-Payments
-java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
+# cd ~/MapR-ES-DB-Spark-Payments
+# java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
 
 
 ### 2 - Consume and transform the streaming data with Spark Streaming and the Kafka API, and
@@ -61,75 +61,80 @@ java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./t
 # 
 # The 'payments' table can be viewed in MCS @ path /user/mapr/demo.mapr.com/tables/payments
 #
-# THIS CLIENT PROCESS IS STARTED AUTOMATICALLY during cluster deployment
-#
-# For presentation purposes, you may start a second consumer client manually, from a separate terminal window
+# For presentation purposes, you may more than one consumer client manually, from a separate terminal window
 # Note: you'll see the client looking for data in the stream, but unless you stop the auto-deployed consumer, it won't actually consume data from the stream,
 #      as the original consumer client is capable of consuming all the data being produced.  OR the original consumer client may fail (due to a conflict in reading 
 #      from the stream partition), in which case, this newly launched consumer will pick up where the other left off) See future enhancement on this.
-# Note: if spark version changes, change path in 'cd' cmd below
-# ssh to the cluster edge node as mapr and:
 #
-cd $SPARK_PATH/bin
+# in a new terminal window, ssh to the cluster edge node as mapr and:
+#
+# first set $SPARK PATH for session, and cd to that dir (do in advance if possible)
+SPARK_VERSION=`apt-cache policy mapr-spark | grep Installed | awk '{print$2}' | cut -c 1-5`
+SPARK_PATH="/opt/mapr/spark/spark-$SPARK_VERSION"
+$SPARK_PATH/bin
+#then, run spark-submit job to start consumer
 ./spark-submit --class streaming.SparkKafkaConsumer --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
-### 3 - Load data into Spark Dataset: Query the MapR-DB JSON document database with Spark-SQL, using the Spark-DB connector
+### 3 - Load data into Spark Dataset AND Query the MapR-DB JSON document database using Spark-SQL, using the MapR-DB Spark connector
 #
-# ssh to the cluster edge node as mapr and:
-# Note: if spark version changes, change path in 'cd' cmd below
+# in a new terminal window, ssh to the cluster edge node as mapr and:
 #
+# first set $SPARK PATH for session, and cd to that dir (do in advance if possible)
+SPARK_VERSION=`apt-cache policy mapr-spark | grep Installed | awk '{print$2}' | cut -c 1-5`
+SPARK_PATH="/opt/mapr/spark/spark-$SPARK_VERSION"
+$SPARK_PATH/bin
 cd $SPARK_PATH/bin
+# then run spark-submit job
 ./spark-submit --class sparkmaprdb.QueryPayment --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
 ### 4 - Query the MapR-DB document database using Apache Drill (JDBC). 
+# (old) java version: java -cp ./target/mapr-es-db-spark-payment-1.0.jar:./target/* maprdb.DRILL_SimpleQuery
+# (old) Spark version: cd $SPARK_PATH/bin
+#                      ./spark-submit --class maprdb.DRILL_SimpleQuery --master local[2] --jars /opt/mapr/drill/jars/jdbc-driver/drill-jdbc-all-1.11.0.jar ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 #
 # Show the Top 10 physician specialties by total payments
-# Query = select physician_specialty,sum(amount) as total from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_specialty order by total desc limit 10
-#
-cd $SPARK_PATH/bin
-./spark-submit --class maprdb.DRILL_SimpleQuery --master local[2] --jars /opt/mapr/drill/jars/jdbc-driver/drill-jdbc-all-1.11.0.jar ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
+sqlline
+select physician_specialty,sum(amount) as total from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_specialty order by total desc limit 10;
+quit!
 
 
-### 5 - Query the MapR-DB document database using Java and the OJAI library.
+### 5 - Query the MapR-DB document database using Java and the OJAI library - OPTIONAL
 # OJAI, the Java API used to access MapR-DB JSON, leverages the same query engine as MapR-DB Shell and Apache Drill to query payments table
 # Query the MapR-DB payments table using OJAI
-# original java version (old) $ java -cp ./target/mapr-es-db-spark-payment-1.0.jar:./target/* maprdb.OJAI_SimpleQuery
-cd $SPARK_PATH/bin
-./spark-submit --class maprdb.OJAI_SimpleQuery --master local[2] --jars /opt/mapr/drill/jars/jdbc-driver/drill-jdbc-all-1.11.0.jar ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
+# 
+# cd $SPARK_PATH/bin
+#./spark-submit --class maprdb.OJAI_SimpleQuery --master local[2] --jars /opt/mapr/drill/jars/jdbc-driver/drill-jdbc-all-1.11.0.jar ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
-#### 6. Using the MapR-DB shell and Drill from your mac client 
+#### 6. Using the MapR-DB shell and Drill from your mac client - JSON documents
 #Refer to [**connecting clients **](https://maprdocs.mapr.com/home/MapRContainerDevelopers/ConnectingClients.html) for 
 #information on setting up the Drill client
 #**Use MapR DB Shell to Query the Payments table**
 #In this section you will  use the DB shell to query the Payments JSON table
 #To access MapR-DB from your mac client or logged into the container, you can use MapR-DB shell:
 $ /opt/mapr/bin/mapr dbshell
-#To learn more about the various commands, run help or help <command> , for example help insert.
-$ maprdb mapr:> jsonoptions --pretty true --withtags false
+#from the mapr-db shell: (To learn more about the various commands, run help or help <command> , for example help insert.)
+$ jsonoptions --pretty true --withtags false
 #**find 5 documents**
-maprdb mapr:> find /user/mapr/demo.mapr.com/tables/payments --limit 5
-#Note that queries by _id will be faster because _id is the primary index
+find /user/mapr/demo.mapr.com/tables/payments --limit 5
+###Note that queries by _id will be faster because _id is the primary index
 #Query document with Condition _id starts with 98485 (physician id)**
-maprdb mapr:> find /user/mapr/demo.mapr.com/tables/payments --where '{ "$like" : {"_id":"98485%"} }' --f _id,amount
+find /user/mapr/demo.mapr.com/tables/payments --where '{ "$like" : {"_id":"98485%"} }' --f _id,amount
 #**Query document with Condition _id has february**
-maprdb mapr:> find /user/mapr/demo.mapr.com/tables/payments --where '{ "$like" : {"_id":"%_02/%"} }' --f _id,amount
+find /user/mapr/demo.mapr.com/tables/payments --where '{ "$like" : {"_id":"%_02/%"} }' --f _id,amount
 #**find all payers=**
-maprdb mapr:> find /user/mapr/demo.mapr.com/tables/payments --where '{ "$eq" : {"payer":"Mission Pharmacal Company"} }' --f _id,payer,amount,nature_of_payment
-#ctrl-C to exit maprdb shell
+find /user/mapr/demo.mapr.com/tables/payments --where '{ "$eq" : {"payer":"Mission Pharmacal Company"} }' --f _id,payer,amount,nature_of_payment
+# ctrl-C to exit db-shell
 
 
-# WW - FUTURE enhancement - add Drill query on Mapr-ES
-
-#  Use Drill Shell to query MapR-DB  
-#From an edge node terminal, connect to Drill as user mapr through JDBC by running sqlline:
-# this is CM's original cmd: /opt/mapr/drill/drill-1.11.0/bin/sqlline -u "jdbc:drill:drillbit=localhost" -n mapr
-# WW - for dsr-demo, on edge node just: 
+#  Use Drill Shell to query MapR-DB - Rows in a table
+# From an edge node terminal, connect to Drill as user mapr through JDBC by running sqlline:
+#               (this is CM's original cmd: /opt/mapr/drill/drill-1.11.0/bin/sqlline -u "jdbc:drill:drillbit=localhost" -n mapr)
+# On edge node, open Drill shell: 
 sqlline
 # 0: jdbc:drill:zk=mapr-zk:5181/drill/dsr-demo->
-# WW - changed these to work with dsr-demo
 # 1 - Top 5 Physician Ids by Amount**
 select physician_id, sum(amount) as revenue from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_id order by revenue desc limit 5;
 # 2 - Top 5 nature of payments by Amount**
@@ -142,58 +147,49 @@ select _id,  amount from dfs.`/user/mapr/demo.mapr.com/tables/payments` where _i
 select _id, amount, payer from dfs.`/user/mapr/demo.mapr.com/tables/payments` where payer='CorMatrix Cardiovascular Inc.';
 select _id, amount, payer from dfs.`/user/mapr/demo.mapr.com/tables/payments` where payer like '%Dental%';
 select  distinct(payer) from dfs.`/user/mapr/demo.mapr.com/tables/payments`;
-#!q to exit drill shell
+!quit
 
-
+THIS IS NOT WORKING YET
 #### 7. Adding a secondary index to the payments JSON table, to speed up queries
-# Let's now add indices to the payments table.
-# before performance:
-$ /opt/mapr/bin/mapr dbshell
-maprdb mapr:> find /apps/payments --where '{ "$eq" : {"payer":"Mission Pharmacal Company"} }' --f _id,payer,amount,nature_of_payment
-maprdb mapr:> ctrl-c
-
-# In a terminal window create index
-#need to convert this to REST
-#$ maprcli table index add -path /apps/payments -index idx_payer -indexedfields 'payer:1'
-#curl -sSk -X POST -u 'mapr:maprmapr' "https://dsr-demo-pbmggt.se.corp.maprtech.com:8443/rest/table/index/add?path=/user/mapr/demo.mapr.com/tables/payments&index=idx_payer&indexedfields=payer:1"
-#ERROR:  mapr@edge-5d5bbc5544-sbgs4:~$ curl -sSk -X POST -u 'mapr:maprmapr' "https://dsr-demo-pbmggt.se.corp.maprtech.com:8443/rest/table/index/add?path=/user/mapr/demo.mapr.com/tables/payments&index=idx_payer&indexedfields=payer:1"
-##{"timestamp":1525388489727,"timeofday":"2018-05-03 11:01:29.727 GMT+0000 PM","status":"ERROR","errors":[{"id":22,"desc":"Failed to add index for table: /user/mapr/demo.mapr.com/tables/payments : Cluster Gateways are not configured"}]}mapr@edge-5d5bbc5544-sbgs4:~$
-
-#In MapR-DB Shell, try queries on payments payers and compare with previous query performance:
-$ /opt/mapr/bin/mapr dbshell
-maprdb mapr:> find /apps/payments --where '{ "$eq" : {"payer":"Mission Pharmacal Company"} }' --f _id,payer,amount,nature_of_payment
-maprdb mapr:> ctrl-c
-
-
-#In Drill try 
+#
+# check BEFORE performance:
+/opt/mapr/bin/mapr dbshell
+find /apps/payments --where '{ "$eq" : {"payer":"Mission Pharmacal Company"} }' --f _id,payer,amount,nature_of_payment
+ctrl-c
+# In a terminal window create index (maprcli table index add -path /apps/payments -index idx_payer -indexedfields 'payer:1')
+# need to convert this to REST
+# format:  http[s]://<host>:<port>/rest/table/index/add?path=<path>&index=<index name>&indexedfields=<indexed field names>
+curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/table/index/add?path=/user/mapr/demo.mapr.com/tables/payments&index=idx_payer&indexedfields=payer"
+ERROR: {"timestamp":1525735089672,"timeofday":"2018-05-07 11:18:09.672 GMT+0000 PM","status":"ERROR","errors":[{"id":22,"desc":"Failed to add index for table: /user/mapr/demo.mapr.com/tables/payments : Cluster Gateways are not configured"}]}mapr@edge-5cbd885d54-p7vpj:~$
+#
+#
+# again,run queries on payments/payers and compare with previous query performance:
+# In db-shell
+/opt/mapr/bin/mapr dbshell
+find /apps/payments --where '{ "$eq" : {"payer":"Mission Pharmacal Company"} }' --f _id,payer,amount,nature_of_payment
+ctrl-c
+# In Drill shell 
 $ sqlline
 select _id, amount, payer from dfs.`/user/mapr/demo.mapr.com/tables/payments` where payer='CorMatrix Cardiovascular Inc.';
 select _id, amount, payer from dfs.`/user/mapr/demo.mapr.com/tables/payments` where payer like '%Dental%';
 select  distinct(payer) from dfs.`/user/mapr/demo.mapr.com/tables/payments` ;
+!quit
 
-##Cleaning Up
+### Cleaning Up
+# You can delete the topic and table in MCS
 
-#You can delete the topic and table using the following command from a container terminal:
-#```
-#maprcli stream topic delete -path /mapr/maprdemo.mapr.io/apps/paystream -topic payment
-#maprcli table delete -path /mapr/maprdemo.mapr.io/apps/payments
-
-#```
-## Conclusion
+### Conclusion
 #
-#In this example you have learned how to:
-
-#* Publish using the Kafka API  Medicare Open payments data from a CSV file into MapR-ES 
-#* Consume and transform the streaming data with Spark Streaming and the Kafka API
-#* Transform the data into JSON format and save to the MapR-DB document database using the Spark-DB connector
-#* Query and Load the JSON data from the MapR-DB document database using the Spark-DB connector and Spark SQL 
-#* Query the MapR-DB document database using Apache Drill 
-#* Query the MapR-DB document database using Java and the OJAI library
-
-
-
-You can also look at the following examples:
-
-* [mapr-db-60-getting-started](https://github.com/mapr-demos/mapr-db-60-getting-started) to learn Discover how to use DB Shell, Drill and OJAI to query and update documents, but also how to use indexes.
-* [Ojai 2.0 Examples](https://github.com/mapr-demos/ojai-2-examples) to learn more about OJAI 2.0 features
-* [MapR-DB Change Data Capture](https://github.com/mapr-demos/mapr-db-cdc-sample) to capture database events such as insert, update, delete and react to this events.
+# In this example you have learned how to:
+#
+# * Publish using the Kafka API  Medicare Open payments data from a CSV file into MapR-ES 
+# * Consume and transform the streaming data with Spark Streaming and the Kafka API
+# * Transform the data into JSON format and save to the MapR-DB document database using the Spark-DB connector
+# * Query and Load the JSON data from the MapR-DB document database using the Spark-DB connector and Spark SQL 
+# * Query the MapR-DB document database using Apache Drill 
+# * Query the MapR-DB document database using Java and the OJAI library
+# Other References:
+#
+# * [mapr-db-60-getting-started](https://github.com/mapr-demos/mapr-db-60-getting-started) to learn Discover how to use DB Shell, Drill and OJAI to query and update documents, but also how to use indexes.
+# * [Ojai 2.0 Examples](https://github.com/mapr-demos/ojai-2-examples) to learn more about OJAI 2.0 features
+# * [MapR-DB Change Data Capture](https://github.com/mapr-demos/mapr-db-cdc-sample) to capture database events such as insert, update, delete and react to this events.
