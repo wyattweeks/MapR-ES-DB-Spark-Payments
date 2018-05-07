@@ -30,30 +30,30 @@ MCS_URL="https://${MCS_HOST}:${MCS_PORT}"
 MAPR_ADMIN=${MAPR_ADMIN:-mapr}
 MAPR_ADMIN_PASSWORD=${MAPR_ADMIN_PASSWORD:-maprmapr}
 
-chk_str="Waiting ..."
+#chk_str="Waiting ..."
 
-check_cluster(){
-	if ! $(curl --output /dev/null -Iskf "$MCS_URL"); then
-		chk_str="Waiting for MCS at $MCS_URL to start..."
-		return 1
-	fi
-
-	find_cldb=curl -sSk -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/node/cldbmaster"
-	if [ "$($find_cldb | jq -r '.status')" = "OK" ]; then
-		return 0
-	else
-		echo "Connected to $MCS_URL, Waiting for CLDB Master to be Ready..."
-		return 1
-	fi
-}
-
-until check_cluster; do
-    echo "$chk_str"
-    sleep 10
-done
-echo "CLDB Master is ready, continuing startup for $MAPR_CLUSTER ..."
-
-#set spark path and version to future-proof
+#check_cluster(){
+#	if ! $(curl --output /dev/null -Iskf $MCS_URL); then
+#		chk_str="Waiting for MCS at $MCS_URL to start..."
+#		return 1
+#	fi
+#
+#	find_cldb=curl -sSk -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/node/cldbmaster"
+#	if [ "$($find_cldb | jq -r '.status')" = "OK" ]; then
+#		return 0
+#	else
+#		echo "Connected to $MCS_URL, Waiting for CLDB Master to be Ready..."
+#		return 1
+#	fi
+#}
+#
+#until check_cluster; do
+#    echo "$chk_str"
+#    sleep 10
+#done
+#echo "CLDB Master is ready, continuing startup for $MAPR_CLUSTER ..."
+#
+###set spark path and version to future-proof
 SPARK_VERSION=`apt-cache policy mapr-spark | grep Installed | awk '{print$2}' | cut -c 1-5`
 SPARK_PATH="/opt/mapr/spark/spark-$SPARK_VERSION"
 
