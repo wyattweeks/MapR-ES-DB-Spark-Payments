@@ -33,7 +33,7 @@ MAPR_ADMIN_PASSWORD=${MAPR_ADMIN_PASSWORD:-maprmapr}
 chk_str="Waiting ..."
 
 check_cluster(){
-	if ! $(curl --output /dev/null -Iskf $MCS_URL); then
+	if ! $(curl --output /dev/null -Iskf "$MCS_URL"); then
 		chk_str="Waiting for MCS at $MCS_URL to start..."
 		return 1
 	fi
