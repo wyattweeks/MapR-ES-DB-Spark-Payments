@@ -7,7 +7,7 @@
 
 # STEPS TO MANUALLY REFRESH FROM REPO
 # IMPORTANT - when represhing repo, do this BEFORE deploying the MapR-ES-DB-Spark-Payments demo cluster, because jars for demo are copied from public data at cluster startup
-# 1 - ssh to edge node of any cluster deployment as mapr
+# 1 - ssh to jump box as mapr
 # 2 - $ cd /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments
 # 3 - $ git pull 
 # 4 - $ mvn clean install
