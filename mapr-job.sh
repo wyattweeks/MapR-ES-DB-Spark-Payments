@@ -63,25 +63,25 @@ echo "CLDB Master is ready, continuing startup for $MAPR_CLUSTER ..."
 
 su - mapr
 
-#### 1. Use REST to create volumes
+#### setup demo on edge node
+#copy MapR-ES-DB-Spark-Payments demo from public_data to edge node and payments.csv to 'files' volume and build jars with maven
+cp -r /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments ~/
+cp ~/MapR-ES-DB-Spark-Payments/data/payments.csv /mapr/$MAPR_CLUSTER/user/mapr/demo.mapr.com/files/payments.csv
+cd ~/MapR-ES-DB-Spark-Payments
+
+#### Use REST to create volumes
 ## create volumes for files tables and streams
 curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/volume/create?name=demo.mapr.com&path=/user/mapr/demo.mapr.com/&topology=/data/default-rack&replication=3&type=rw"
 curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/volume/create?name=files.demo.mapr.com&path=/user/mapr/demo.mapr.com/files/&topology=/data/default-rack&replication=3&type=rw"
 curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/volume/create?name=tables.demo.mapr.com&path=/user/mapr/demo.mapr.com/tables/&topology=/data/default-rack&replication=3&type=rw"
 curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/volume/create?name=streams.demo.mapr.com&path=/user/mapr/demo.mapr.com/streams/&topology=/data/default-rack&replication=3&type=rw"
 
-#### 2. Create MapR-ES Stream, Topic, and MapR-DB table via REST APIs
+#### Create MapR-ES Stream, Topic, and MapR-DB table via REST APIs
 curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/stream/create?path=/user/mapr/demo.mapr.com/streams/paystream&produceperm=p&consumeperm=p&topicperm=p"
 curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/stream/topic/create?path=/user/mapr/demo.mapr.com/streams/paystream&topic=payments"
 curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/table/create?path=/user/mapr/demo.mapr.com/tables/payments&tabletype=json&defaultreadperm=p&defaultwriteperm=p"
 
-#### 3. setup demo on edge node
-#copy MapR-ES-DB-Spark-Payments demo from public_data to edge node and payments.csv to 'files' volume and build jars with maven
-cp -r /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments ~/
-cp ~/MapR-ES-DB-Spark-Payments/data/payments.csv /mapr/$MAPR_CLUSTER/user/mapr/demo.mapr.com/files/payments.csv
-cd ~/MapR-ES-DB-Spark-Payments
-
-#### 4.  Run the java publisher client and the Spark consumer client**
+####  Run the java publisher client and the Spark consumer client**
 # This java slient will read lines from the file in ~/MapR-ES-DB-Spark-Payments/data/payments.csv and publish them to the topic /streams/paystream:payments. 
 # You can optionally pass the file and topic as input parameters <file topic> 
 # UNCOMMENT BELOW TO AUTO-START THE PRODUCER ON DEPLOYMENT
