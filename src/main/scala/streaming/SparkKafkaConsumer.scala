@@ -71,7 +71,7 @@ object SparkKafkaConsumer {
     val offsetReset = "earliest" //  "latest"
     val pollTimeout = "5000"
 
-    val brokers = "dsr-demo:9092" // not needed for MapR Streams, needed for Kafka
+    val brokers = "${MAPR_CLUSTER}:9092" // not needed for MapR Streams, needed for Kafka
 
     val sparkConf = new SparkConf()
       .setAppName(SparkKafkaConsumer.getClass.getName).setMaster("local[*]")

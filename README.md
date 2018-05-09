@@ -40,7 +40,7 @@ chmod 667 demosetup.sh
 # This java publisher client will read lines from the payments.csv and publish them in the same format (comma-delimited strings)
 # to the MapR Stream:topic @ /streams/paystream:payments
 #
-# The paystream:payments stream:topic can be viewed in MCS @ path /mapr/dsr-demo/user/mapr/demo.mapr.com/streams/paystream
+# The paystream:payments stream:topic can be viewed in MCS @ path /mapr/${MAPR_CLUSTER}/user/mapr/demo.mapr.com/streams/paystream
 #
 # THIS CLIENT PROCESS IS STARTED AUTOMATICALLY during cluster deployment
 #
@@ -134,7 +134,7 @@ find /user/mapr/demo.mapr.com/tables/payments --where '{ "$eq" : {"payer":"Missi
 #               (this is CM's original cmd: /opt/mapr/drill/drill-1.11.0/bin/sqlline -u "jdbc:drill:drillbit=localhost" -n mapr)
 # On edge node, open Drill shell: 
 sqlline
-# 0: jdbc:drill:zk=mapr-zk:5181/drill/dsr-demo->
+# 0: jdbc:drill:zk=mapr-zk:5181/drill/${MAPR_CLUSTER}->
 # 1 - Top 5 Physician Ids by Amount**
 select physician_id, sum(amount) as revenue from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_id order by revenue desc limit 5;
 # 2 - Top 5 nature of payments by Amount**
