@@ -63,6 +63,10 @@ echo "CLDB Master is ready, continuing startup for $MAPR_CLUSTER ..."
 
 su - mapr
 
+### Get latest M7 trial license
+curl -s -u 'maprse:mapr$e4mapr!' 'http://stage.mapr.com/license/LatestDemoLicense-M7.txt' > license.txt
+maprcli license add -license license.txt -is_file true
+
 #### 1. Use REST to create volumes
 ## create volumes for files tables and streams
 curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/volume/create?name=demo.mapr.com&path=/user/mapr/demo.mapr.com/&topology=/data/default-rack&replication=3&type=rw"
