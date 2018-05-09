@@ -61,6 +61,7 @@ until check_cluster; do
 done
 echo "CLDB Master is ready, continuing startup for $MAPR_CLUSTER ..."
 
+su - mapr
 
 #### 1. Use REST to create volumes
 ## create volumes for files tables and streams
@@ -83,7 +84,5 @@ cd ~/MapR-ES-DB-Spark-Payments
 #### 4.  Run the java publisher client and the Spark consumer client**
 # This java slient will read lines from the file in ~/MapR-ES-DB-Spark-Payments/data/payments.csv and publish them to the topic /streams/paystream:payments. 
 # You can optionally pass the file and topic as input parameters <file topic> 
-java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
-### This spark streaming consumer client will consume from the topic /streams/paystream:payments and write to the table /tables/payments.
-cd $SPARK_PATH/bin
-./spark-submit --class streaming.SparkKafkaConsumer --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
+# UNCOMMENT BELOW TO AUTO-START THE PRODUCER ON DEPLOYMENT
+#java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer

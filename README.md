@@ -42,13 +42,10 @@ chmod 667 demosetup.sh
 #
 # The paystream:payments stream:topic can be viewed in MCS @ path /mapr/${MAPR_CLUSTER}/user/mapr/demo.mapr.com/streams/paystream
 #
-# THIS CLIENT PROCESS IS STARTED AUTOMATICALLY during cluster deployment
+# Open a separate terminal window and ssh to the cluster edge node as mapr and:
 #
-# For presentation purposes, you may start a second producer client manually, from a separate terminal window
-# ssh to the cluster edge node as mapr and:
-#
-# cd ~/MapR-ES-DB-Spark-Payments
-# java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
+cd ~/MapR-ES-DB-Spark-Payments
+java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
 
 
 ### 2 - Consume and transform the streaming data with Spark Streaming and the Kafka API, and

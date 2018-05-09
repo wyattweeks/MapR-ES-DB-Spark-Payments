@@ -1,6 +1,8 @@
 
 to finish project:
 
+** reformat readme file
+
 ** remove sudo - not needed 
 
 ** add instructions / template for deployment with drill ports open to outside and public dns 
