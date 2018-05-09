@@ -1,5 +1,8 @@
 
 to finish project:
+
+** remove sudo - not needed 
+
 ** add instructions / template for deployment with drill ports open to outside and public dns 
     - copy deploy template from paul's latest and make these changes and save - then ask him to publish as 'healthcare demo'
         - ports for drill

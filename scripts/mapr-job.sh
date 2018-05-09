@@ -41,29 +41,26 @@ SPARK_PATH="/opt/mapr/spark/spark-$SPARK_VERSION"
 echo SPARK_PATH=$SPARK_PATH >> ~/.profile
 
 
-#chk_str="Waiting ..."
+echo ""
+echo "MapR JOB script executing for demo"
+echo ""
+chk_str="Waiting ..."
+# Check that the CLDB is up and running.
+check_cluster(){
+        find_cldb="curl -sSk -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} ${MCS_URL}/rest/node/cldbmaster"
+        if [ "$($find_cldb | jq -r '.status')" = "OK" ]; then
+                return 0
+        else
+                echo "Connected to $MCS_URL, Waiting for CLDB Master to be Ready..."
+                return 1
+        fi
+}
+until check_cluster; do
+    echo "$chk_str"
+    sleep 10
+done
+echo "CLDB Master is ready, continuing startup for $MAPR_CLUSTER ..."
 
-#check_cluster(){
-#	if ! $(curl --output /dev/null -Iskf $MCS_URL); then
-#		chk_str="Waiting for MCS at $MCS_URL to start..."
-#		return 1
-#	fi
-#
-#	find_cldb=curl -sSk -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/node/cldbmaster"
-#	if [ "$($find_cldb | jq -r '.status')" = "OK" ]; then
-#		return 0
-#	else
-#		echo "Connected to $MCS_URL, Waiting for CLDB Master to be Ready..."
-#		return 1
-#	fi
-#}
-#
-#until check_cluster; do
-#    echo "$chk_str"
-#    sleep 10
-#done
-#echo "CLDB Master is ready, continuing startup for $MAPR_CLUSTER ..."
-#
 
 #### 1. Use REST to create volumes
 ## create volumes for files tables and streams
