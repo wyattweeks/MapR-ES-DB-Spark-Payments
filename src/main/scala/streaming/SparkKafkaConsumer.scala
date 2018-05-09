@@ -28,15 +28,25 @@ object SparkKafkaConsumer {
 
   /*
    *position of values in csv
+   *WW change-added everything after nature_of_payment and corresponding parse changes
 5 Physician_Profile_ID as physician_id, 
 31 Date_of_Payment as date_payment, 
 45 Record_ID as record_id, 
 27 Applicable_Manufacturer_or_Applicable_GPO_Making_Payment_Name as payer,  
 30 amount, 
 19 Physician_Specialty, 
-34 Nature_of_Payment_or_Transfer_of_Value as Nature_of_payment 
+34 Nature_of_Payment_or_Transfer_of_Value as Nature_of_payment,
+6 Physician_First_Name as physician_name_first,
+7 Physician_Middle_Name as physician_name_middle,
+8 Physician_Last_Name as physician_name_last,
+9 Physician_Name_Suffix as physician_name_suffix,
+12 Recipient_City as recipient_city,
+13 Recipient_State as recipient_state,
+14 Recipient_Zip_Code as recipient_zip,
+15 Recipient_Country as recipient_country
 */
-  case class Payment(physician_id: String, date_payment: String, record_id: String, payer: String, amount: Double, physician_specialty: String, nature_of_payment: String) extends Serializable
+  case class Payment(physician_id: String, date_payment: String, record_id: String, payer: String, amount: Double, physician_specialty: String, nature_of_payment: String,
+    physician_name_first: String, physician_name_middle: String, physician_name_last: String, physician_name_suffix: String, recipient_city: String, recipient_state: String, recipient_zip: String, recipient_country: String) extends Serializable
 
   case class PaymentwId(_id: String, physician_id: String, date_payment: String, payer: String, amount: Double, physician_specialty: String,
     nature_of_payment: String) extends Serializable
@@ -47,7 +57,15 @@ object SparkKafkaConsumer {
       td(45).replaceAll("\"", ""), td(27).replaceAll("\"", ""),
       Try(td(30).toDouble) getOrElse 0.0,
       td(19).replaceAll("\"", ""),
-      td(34).replaceAll("\"", ""))
+      td(34).replaceAll("\"", ""),
+      td(6).replaceAll("\"", ""),
+      td(7).replaceAll("\"", ""),
+      td(8).replaceAll("\"", ""),
+      td(9).replaceAll("\"", ""),
+      td(12).replaceAll("\"", ""),
+      td(13).replaceAll("\"", ""),
+      td(14).replaceAll("\"", ""),
+      td(15).replaceAll("\"", ""))
   }
 
   def parsePaymentwID(str: String): PaymentwId = {

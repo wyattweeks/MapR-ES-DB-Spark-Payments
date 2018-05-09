@@ -18,7 +18,8 @@ reads a CSV file. transforms CSV to JSON and writes to MapR-DB JSON
 
 object ETLPayment {
 
-  case class Payment(physician_id: String, date_payment: String, record_id: String, payer: String, amount: Double, physician_specialty: String, nature_of_payment: String) extends Serializable
+  case class Payment(physician_id: String, date_payment: String, record_id: String, payer: String, amount: Double, physician_specialty: String, nature_of_payment: String,
+    physician_name_first: String, physician_name_middle: String, physician_name_last: String, physician_name_suffix: String, recipient_city: String, recipient_state: String, recipient_zip: String, recipient_country: String) extends Serializable
 
   case class PaymentwId(_id: String, physician_id: String, date_payment: String, payer: String, amount: Double, physician_specialty: String,
     nature_of_payment: String) extends Serializable
@@ -30,8 +31,17 @@ object ETLPayment {
     StructField("payer", StringType, true),
     StructField("amount", DoubleType, true),
     StructField("physician_specialty", StringType, true),
-    StructField("nature_of_payment", StringType, true)
+    StructField("nature_of_payment", StringType, true),
+    StructField("physician_name_first", StringType, true),
+    StructField("physician_name_middle", StringType, true),
+    StructField("physician_name_last", StringType, true),
+    StructField("physician_name_suffix", StringType, true),
+    StructField("recipient_city", StringType, true),
+    StructField("recipient_state", StringType, true),
+    StructField("recipient_zip", StringType, true),
+    StructField("recipient_country", StringType, true)
   ))
+  
 
   def createPaymentwId(p: Payment): PaymentwId = {
     val id = p.physician_id + '_' + p.date_payment + '_' + p.record_id
@@ -59,7 +69,7 @@ object ETLPayment {
     df2.createOrReplaceTempView("payments")
 
     import spark.implicits._
-    val ds: Dataset[Payment] = spark.sql("select Physician_Profile_ID as physician_id, Date_of_Payment as date_payment, Record_ID as record_id, Applicable_Manufacturer_or_Applicable_GPO_Making_Payment_Name as payer,  amount, Physician_Specialty, Nature_of_Payment_or_Transfer_of_Value as Nature_of_payment from payments ").as[Payment]
+    val ds: Dataset[Payment] = spark.sql("select Physician_Profile_ID as physician_id, Date_of_Payment as date_payment, Record_ID as record_id, Applicable_Manufacturer_or_Applicable_GPO_Making_Payment_Name as payer,  amount, Physician_Specialty, Nature_of_Payment_or_Transfer_of_Value as Nature_of_payment, Physician_First_Name as physician_name_first, Physician_Middle_Name as physician_name_middle, Physician_Last_Name as physician_name_last, Physician_Name_Suffix as physician_name_suffix, Recipient_City as recipient_city, Recipient_State as recipient_state, Recipient_Zip_Code as recipient_zip, Recipient_Country as recipient_country from payments").as[Payment]
     ds.cache
     ds.count
     ds.createOrReplaceTempView("payments")
