@@ -156,10 +156,10 @@ THIS IS NOT WORKING YET
 /opt/mapr/bin/mapr dbshell
 find /apps/payments --where '{ "$eq" : {"payer":"Mission Pharmacal Company"} }' --f _id,payer,amount,nature_of_payment
 ctrl-c
-# In a terminal window create index (maprcli table index add -path /apps/payments -index idx_payer -indexedfields 'payer:1')
+# In a terminal window: maprcli create index (maprcli table index add -path /apps/payments -index idx_payer -indexedfields 'payer:1')
 # need to convert this to REST
 # format:  http[s]://<host>:<port>/rest/table/index/add?path=<path>&index=<index name>&indexedfields=<indexed field names>
-curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/table/index/add?path=/user/mapr/demo.mapr.com/tables/payments&index=idx_payer&indexedfields=payer"
+curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/table/index/add?path=/user/mapr/demo.mapr.com/tables/payments&index=idx_payer&indexedfields=payer,"
 ERROR: {"timestamp":1525735089672,"timeofday":"2018-05-07 11:18:09.672 GMT+0000 PM","status":"ERROR","errors":[{"id":22,"desc":"Failed to add index for table: /user/mapr/demo.mapr.com/tables/payments : Cluster Gateways are not configured"}]}mapr@edge-5cbd885d54-p7vpj:~$
 #
 #
@@ -174,6 +174,14 @@ select _id, amount, payer from dfs.`/user/mapr/demo.mapr.com/tables/payments` wh
 select _id, amount, payer from dfs.`/user/mapr/demo.mapr.com/tables/payments` where payer like '%Dental%';
 select  distinct(payer) from dfs.`/user/mapr/demo.mapr.com/tables/payments` ;
 !quit
+
+### 8. Create a Drill view and Query it with Tableau Desktop
+# avoid using 'linit' in drill view create statements - can result in IOOB errors
+use dfs.tmp;
+#
+create or replace view physicians_by_revenue as select physician_id, sum(amount) as revenue from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_id;
+#
+create or replace view physicians_by_specialty_revenue as select physician_specialty,sum(amount) as total from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_specialty;
 
 ### Cleaning Up
 # You can delete the topic and table in MCS

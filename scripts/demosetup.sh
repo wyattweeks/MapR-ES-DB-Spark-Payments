@@ -24,11 +24,22 @@ echo "Running Custom MAPR Demo setup for /public_data/demos_healthcare/MapR-ES-D
 
 #Run custom job actions
 
+###set environment variables in ~/.profile
 MCS_HOST=${MAPR_CLDB_HOSTS:-cldb}
 MCS_PORT=${MCS_PORT:-8443}
 MCS_URL="https://${MCS_HOST}:${MCS_PORT}"
 MAPR_ADMIN=${MAPR_ADMIN:-mapr}
 MAPR_ADMIN_PASSWORD=${MAPR_ADMIN_PASSWORD:-maprmapr}
+echo MCS_URL=$MCS_URL >> ~/.profile
+echo MAPR_ADMIN=$MAPR_ADMIN >> ~/.profile
+echo MAPR_ADMIN_PASSWORD=$MAPR_ADMIN_PASSWORD >> ~/.profile
+echo MAPR_CLUSTER=$MAPR_CLUSTER >> ~/.profile
+
+###set spark path and version to future-proof
+SPARK_VERSION=`apt-cache policy mapr-spark | grep Installed | awk '{print$2}' | cut -c 1-5`
+SPARK_PATH="/opt/mapr/spark/spark-$SPARK_VERSION"
+echo SPARK_PATH=$SPARK_PATH >> ~/.profile
+
 
 #chk_str="Waiting ..."
 
@@ -53,9 +64,6 @@ MAPR_ADMIN_PASSWORD=${MAPR_ADMIN_PASSWORD:-maprmapr}
 #done
 #echo "CLDB Master is ready, continuing startup for $MAPR_CLUSTER ..."
 #
-###set spark path and version to future-proof
-SPARK_VERSION=`apt-cache policy mapr-spark | grep Installed | awk '{print$2}' | cut -c 1-5`
-SPARK_PATH="/opt/mapr/spark/spark-$SPARK_VERSION"
 
 #### 1. Use REST to create volumes
 ## create volumes for files tables and streams
