@@ -1,45 +1,36 @@
-####  Streaming ETL Pipeline to Transform, Store and Explore Healthcare Dataset using Spark, JSON, MapR-DB, MapR-ES, Drill
+#Streaming ETL Pipeline to Transform, Store and Explore Healthcare Dataset using Spark, JSON, MapR-DB, MapR-ES, Drill, and Tableau
 
-# MapR-ES-DB-Spark-Payments project has been cloned to /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments (source = git clone http://git.se.corp.maprtech.com/wweeks/MapR-ES-DB-Spark-Payments.git)
-# Manually refresh when repo changes (see steps below)
-# maven rebuilds jars in /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target
-# (set auto refresh in future?)
+SourceControl
+MapR-ES-DB-Spark-Payments project has been cloned to /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments (source = git clone http://git.se.corp.maprtech.com/wweeks/MapR-ES-DB-Spark-Payments.git)
+Manually refresh when repo changes (see steps below)
+maven rebuilds jars in /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target
 
-# STEPS TO MANUALLY REFRESH FROM REPO
-# IMPORTANT - when represhing repo, do this BEFORE deploying the MapR-ES-DB-Spark-Payments demo cluster, because jars for demo are copied from public data at cluster startup
-# 1 - ssh to jump box as mapr
-# 2 - $ cd /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments
-# 3 - $ git pull 
-# 4 - $ mvn clean install
+    How to manually refresh the project on /public_data, from se git repo:
+        1 - ssh to jump box as mapr
+        2 - $ cd /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments
+        3 - $ git pull 
+        4 - $ mvn clean install
 
-### Introduction
+# Introduction
 
-## This example will show you how to work with MapR-ES, Spark Streaming, and MapR-DB JSON :
-# 1 - Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
-# 2 - Consume and transform the streaming data with Spark Streaming and the Kafka API, and
-#     Transform the data into JSON format and save to the MapR-DB document database using the Spark-DB connector.
-# 3 - Load data into Spark Dataset: Query the MapR-DB JSON document database with Spark-SQL, using the Spark-DB connector
-# 4 - Query the MapR-DB document database using Apache Drill. 
-# 5 - Query the MapR-DB document database using Java and the OJAI library.
+This example will show you how to work with MapR-ES, Spark Streaming, and MapR-DB JSON :
+1 - Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
+2 - Consume and transform the streaming data with Spark Streaming and the Kafka API, AND Transform the data into JSON format and save to the MapR-DB document database using the Spark-DB connector.
+3 - Load data into Spark Dataset: Query the MapR-DB JSON document database with Spark-SQL, using the Spark-DB connector
+4 - Query the MapR-DB document database using Apache Drill. 
+5 - Query the MapR-DB document database using Java and the OJAI library
+6 - connect Tableau desktop and run a report that is regularly updated with new data that is streaming into MapR.
 
 
-### 
-DEMO: STEP-BY-STEP
-###
+# DEMO: STEP-BY-STEP
 
-## 0 - Launching the demo cluster
-# 
-# - open the drill ports
+0 - Launching the demo cluster
+   - open the drill ports
 
-## 1 - Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
-#
-# This java publisher client will read lines from the payments.csv and publish them in the same format (comma-delimited strings)
-# to the MapR Stream:topic @ /streams/paystream:payments
-#
-# The paystream:payments stream:topic can be viewed in MCS @ path /mapr/${MAPR_CLUSTER}/user/mapr/demo.mapr.com/streams/paystream
-#
-# Open a separate terminal window and ssh to the cluster edge node as mapr and:
-#
+1 - Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
+This java publisher client will read lines from the payments.csv and publish them in the same format (comma-delimited strings) to the MapR Stream:topic @ /streams/paystream:payments
+The paystream:payments stream:topic can be viewed in MCS @ path /mapr/${MAPR_CLUSTER}/user/mapr/demo.mapr.com/streams/paystream
+Open a separate terminal window and ssh to the cluster edge node as mapr and:
 cd /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments
 java -cp /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
 
