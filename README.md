@@ -14,15 +14,15 @@ maven rebuilds jars in /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/t
 ## Introduction
 
 This example will show you how to work with MapR-ES, Spark Streaming, and MapR-DB JSON :
-1 - Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
-2 - Consume and transform the streaming data with Spark Streaming and the Kafka API, AND Transform the data into JSON format and save to the MapR-DB document database using the Spark-DB connector.
-3 - Load data into Spark Dataset: Query the MapR-DB JSON document database with Spark-SQL, using the Spark-DB connector
-4 - Query the MapR-DB document database using Apache Drill. 
-5 - Query the MapR-DB document database using Java and the OJAI library
-6 - connect Tableau desktop and run a report that is regularly updated with new data that is streaming into MapR.
+- Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
+- Consume and transform the streaming data with Spark Streaming and the Kafka API, and Transform the data into JSON format and save to the MapR-DB document database using the Spark-DB connector.
+- Load data into Spark Dataset: Query the MapR-DB JSON document database with Spark-SQL, using the Spark-DB connector
+- Query the MapR-DB document database using Apache Drill. 
+- Query the MapR-DB document database using Java and the OJAI library
+- connect Tableau desktop and run a report that is regularly updated with new data that is streaming into MapR.
 
 
-## DEMO: STEP-BY-STEP
+## Demo: Step-by-Step
 
 ### 0 - Launching the demo cluster
    - open the drill ports
