@@ -1,6 +1,6 @@
-## Streaming ETL Pipeline to Transform, Store and Explore Healthcare Dataset using Spark, JSON, MapR-DB, MapR-ES, Drill, and Tableau
+# Streaming ETL Pipeline to Transform, Store and Explore Healthcare Dataset using Spark, JSON, MapR-DB, MapR-ES, Drill, and Tableau
 
-# Git Repo for Project
+## Git Repo for Project
 MapR-ES-DB-Spark-Payments project has been cloned to /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments (source = git clone http://git.se.corp.maprtech.com/wweeks/MapR-ES-DB-Spark-Payments.git)
 Manually refresh when repo changes (see steps below)
 maven rebuilds jars in /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target
@@ -11,7 +11,7 @@ maven rebuilds jars in /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/t
         3 - $ git pull 
         4 - $ mvn clean install
 
-# Introduction
+## Introduction
 
 This example will show you how to work with MapR-ES, Spark Streaming, and MapR-DB JSON :
 1 - Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
@@ -22,9 +22,9 @@ This example will show you how to work with MapR-ES, Spark Streaming, and MapR-D
 6 - connect Tableau desktop and run a report that is regularly updated with new data that is streaming into MapR.
 
 
-# DEMO: STEP-BY-STEP
+## DEMO: STEP-BY-STEP
 
-0 - Launching the demo cluster
+### 0 - Launching the demo cluster
    - open the drill ports
 
 1 - Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
@@ -36,22 +36,22 @@ java -cp /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-
 
 
 ### 2 - Consume and transform the streaming data with Spark Streaming and the Kafka API, and
-#       Transform the data into JSON format and save to the MapR-DB document database using the Spark-DB connector.
-#
-# This Spark Streaming consumer client does the following:
-#      - consumes data from the MapR stream:topic @ /streams/paystream:payments using the Kafka API, then
-#      - transforms the comma-delimited string consumed from the stream, into JSON format, then
-#      - writes the JSON array, to the MapR-DB JSON table 'payments' using the Spark-DB connector.
-# 
-# The 'payments' table can be viewed in MCS @ path /user/mapr/demo.mapr.com/tables/payments
-#
-# For presentation purposes, you may more than one consumer client manually, from a separate terminal window
-# Note: you'll see the client looking for data in the stream, but unless you stop the auto-deployed consumer, it won't actually consume data from the stream,
-#      as the original consumer client is capable of consuming all the data being produced.  OR the original consumer client may fail (due to a conflict in reading 
-#      from the stream partition), in which case, this newly launched consumer will pick up where the other left off) See future enhancement on this.
-#
-# in a new terminal window, ssh to the cluster edge node as mapr and:
-#
+    Transform the data into JSON format and save to the MapR-DB document database using the Spark-DB connector.
+
+ This Spark Streaming consumer client does the following:
+      - consumes data from the MapR stream:topic @ /streams/paystream:payments using the Kafka API, then
+      - transforms the comma-delimited string consumed from the stream, into JSON format, then
+      - writes the JSON array, to the MapR-DB JSON table 'payments' using the Spark-DB connector.
+ 
+ The 'payments' table can be viewed in MCS @ path /user/mapr/demo.mapr.com/tables/payments
+
+ For presentation purposes, you may more than one consumer client manually, from a separate terminal window
+ Note: you'll see the client looking for data in the stream, but unless you stop the auto-deployed consumer, it won't actually consume data from the stream,
+      as the original consumer client is capable of consuming all the data being produced.  OR the original consumer client may fail (due to a conflict in reading 
+      from the stream partition), in which case, this newly launched consumer will pick up where the other left off) See future enhancement on this.
+
+ in a new terminal window, ssh to the cluster edge node as mapr and:
+
 $SPARK_PATH/bin/spark-submit --class streaming.SparkKafkaConsumer --master local[2] /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
