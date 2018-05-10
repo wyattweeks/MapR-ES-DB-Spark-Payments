@@ -66,8 +66,6 @@ java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./t
 # in a new terminal window, ssh to the cluster edge node as mapr and:
 #
 # first set $SPARK PATH for session, and cd to that dir (do in advance if possible)
-SPARK_VERSION=`apt-cache policy mapr-spark | grep Installed | awk '{print$2}' | cut -c 1-5`
-SPARK_PATH="/opt/mapr/spark/spark-$SPARK_VERSION"
 cd $SPARK_PATH/bin
 #then, run spark-submit job to start consumer
 ./spark-submit --class streaming.SparkKafkaConsumer --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar

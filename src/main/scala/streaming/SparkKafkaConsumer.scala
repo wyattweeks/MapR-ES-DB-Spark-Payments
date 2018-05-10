@@ -53,25 +53,26 @@ object SparkKafkaConsumer {
 
   def parsePayment(str: String): Payment = {
     val td = str.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)")
-    Payment(td(5).replaceAll("\"", ""), td(31).replaceAll("\"", ""),
-      td(45).replaceAll("\"", ""), td(27).replaceAll("\"", ""),
-      Try(td(30).toDouble) getOrElse 0.0,
-      td(19).replaceAll("\"", ""),
-      td(34).replaceAll("\"", ""),
-      td(6).replaceAll("\"", ""),
-      td(7).replaceAll("\"", ""),
-      td(8).replaceAll("\"", ""),
-      td(9).replaceAll("\"", ""),
-      td(12).replaceAll("\"", ""),
-      td(13).replaceAll("\"", ""),
-      td(14).replaceAll("\"", ""),
-      td(15).replaceAll("\"", ""))
+    Payment(td(5).replaceAll("\"", ""), 
+            td(31).replaceAll("\"", ""),
+            td(45).replaceAll("\"", ""), td(27).replaceAll("\"", ""),
+            Try(td(30).toDouble) getOrElse 0.0,
+            td(19).replaceAll("\"", ""),
+            td(34).replaceAll("\"", ""),
+            td(6).replaceAll("\"", ""),
+            td(7).replaceAll("\"", ""),
+            td(8).replaceAll("\"", ""),
+            td(9).replaceAll("\"", ""),
+            td(12).replaceAll("\"", ""),
+            td(13).replaceAll("\"", ""),
+            td(14).replaceAll("\"", ""),
+            td(15).replaceAll("\"", ""))
   }
 
   def parsePaymentwID(str: String): PaymentwId = {
     val pa = parsePayment(str)
     val id = pa.physician_id + '_' + pa.date_payment + '_' + pa.record_id
-    PaymentwId(id, pa.physician_id, pa.date_payment, pa.payer, pa.amount, pa.physician_specialty, pa.nature_of_payment)
+    PaymentwId(id, pa.physician_id, pa.date_payment, pa.payer, pa.amount, pa.physician_specialty, pa.nature_of_payment, pa.physician_name_first, pa.physician_name_middle, pa.physician_name_last, pa.physician_name_suffix, pa.recipient_city, pa.recipient_state, pa.recipient_zip, pa.recipient_country)
   }
 
   def main(args: Array[String]) = {
