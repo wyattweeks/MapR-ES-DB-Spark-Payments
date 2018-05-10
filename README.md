@@ -27,13 +27,9 @@
 DEMO: STEP-BY-STEP
 ###
 
-## 0 - Complete demo setup on edge node and cluster
+## 0 - Launching the demo cluster
 # 
-# ssh to edge node as mapr, and 
-cd /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/scripts
-chmod 667 demosetup.sh
-./demosetup.sh
-
+# - open the drill ports
 
 ## 1 - Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
 #
@@ -44,8 +40,8 @@ chmod 667 demosetup.sh
 #
 # Open a separate terminal window and ssh to the cluster edge node as mapr and:
 #
-cd ~/MapR-ES-DB-Spark-Payments
-java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
+cd /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments
+java -cp /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
 
 
 ### 2 - Consume and transform the streaming data with Spark Streaming and the Kafka API, and
@@ -65,23 +61,13 @@ java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./t
 #
 # in a new terminal window, ssh to the cluster edge node as mapr and:
 #
-# first set $SPARK PATH for session, and cd to that dir (do in advance if possible)
-cd $SPARK_PATH/bin
-#then, run spark-submit job to start consumer
-./spark-submit --class streaming.SparkKafkaConsumer --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
+$SPARK_PATH/bin/spark-submit --class streaming.SparkKafkaConsumer --master local[2] /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
 ### 3 - Load data into Spark Dataset AND Query the MapR-DB JSON document database using Spark-SQL, using the MapR-DB Spark connector
 #
 # in a new terminal window, ssh to the cluster edge node as mapr and:
-#
-# first set $SPARK PATH for session, and cd to that dir (do in advance if possible)
-SPARK_VERSION=`apt-cache policy mapr-spark | grep Installed | awk '{print$2}' | cut -c 1-5`
-SPARK_PATH="/opt/mapr/spark/spark-$SPARK_VERSION"
-$SPARK_PATH/bin
-cd $SPARK_PATH/bin
-# then run spark-submit job
-./spark-submit --class sparkmaprdb.QueryPayment --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
+$SPARK_PATH/bin/spark-submit --class sparkmaprdb.QueryPayment --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
 ### 4 - Query the MapR-DB document database using Apache Drill (JDBC). 
@@ -144,7 +130,6 @@ select _id, amount, payer from dfs.`/user/mapr/demo.mapr.com/tables/payments` wh
 select  distinct(payer) from dfs.`/user/mapr/demo.mapr.com/tables/payments`;
 !quit
 
-THIS IS NOT WORKING YET
 #### 7. Adding a secondary index to the payments JSON table, to speed up queries
 #
 # check BEFORE performance:
@@ -154,9 +139,10 @@ ctrl-c
 # In a terminal window: maprcli create index (maprcli table index add -path /apps/payments -index idx_payer -indexedfields 'payer:1')
 # need to convert this to REST
 # format:  http[s]://<host>:<port>/rest/table/index/add?path=<path>&index=<index name>&indexedfields=<indexed field names>
-curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/table/index/add?path=/user/mapr/demo.mapr.com/tables/payments&index=idx_payer&indexedfields=payer,"
-ERROR: {"timestamp":1525735089672,"timeofday":"2018-05-07 11:18:09.672 GMT+0000 PM","status":"ERROR","errors":[{"id":22,"desc":"Failed to add index for table: /user/mapr/demo.mapr.com/tables/payments : Cluster Gateways are not configured"}]}mapr@edge-5cbd885d54-p7vpj:~$
+# curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/table/index/add?path=/user/mapr/demo.mapr.com/tables/payments&index=idx_payer&indexedfields=payer,"
+# ERROR: {"timestamp":1525735089672,"timeofday":"2018-05-07 11:18:09.672 GMT+0000 PM","status":"ERROR","errors":[{"id":22,"desc":"Failed to add index for table: /user/mapr/demo.mapr.com/tables/payments : Cluster Gateways are not configured"}]}#
 #
+# REST CMD NOT WORKING - BUILD IN MCS
 #
 # again,run queries on payments/payers and compare with previous query performance:
 # In db-shell
@@ -177,6 +163,14 @@ use dfs.tmp;
 create or replace view physicians_by_revenue as select physician_id, sum(amount) as revenue from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_id;
 #
 create or replace view physicians_by_specialty_revenue as select physician_specialty,sum(amount) as total from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_specialty;
+# 
+create or replace view aca_open_payments as
+select recipient_country, recipient_state, physician_specialty, recipient_zip, payer, nature_of_payment, (sum(amount)) as us_dollars
+from dfs.`/user/mapr/demo.mapr.com/tables/payments`
+GROUP BY recipient_country, recipient_state, recipient_zip, physician_specialty, payer, nature_of_payment;
+# AIzaSyCCVEaGnTYrPh394VS9V2X6gSZRSKkOBy0
+# https://www.google.com/maps/embed/v1/view?key=AIzaSyCCVEaGnTYrPh394VS9V2X6gSZRSKkOBy0&center=39.5501,105.7821&zoom=8&maptype=roadmap
+
 
 ### Cleaning Up
 # You can delete the topic and table in MCS

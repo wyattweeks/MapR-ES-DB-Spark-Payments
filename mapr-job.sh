@@ -69,8 +69,8 @@ cp -r /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments ~/
 cp ~/MapR-ES-DB-Spark-Payments/data/payments.csv /mapr/$MAPR_CLUSTER/user/mapr/demo.mapr.com/files/payments.csv
 cd ~/MapR-ES-DB-Spark-Payments
 
-#### Use REST to create volumes
-## create volumes for files tables and streams
+#### Use REST to create volumes, tables, streams
+## create volumes 
 curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/volume/create?name=demo.mapr.com&path=/user/mapr/demo.mapr.com/&topology=/data/default-rack&replication=3&type=rw"
 curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/volume/create?name=files.demo.mapr.com&path=/user/mapr/demo.mapr.com/files/&topology=/data/default-rack&replication=3&type=rw"
 curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/volume/create?name=tables.demo.mapr.com&path=/user/mapr/demo.mapr.com/tables/&topology=/data/default-rack&replication=3&type=rw"

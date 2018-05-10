@@ -1,0 +1,1416 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 10300.18.0401.1240                               -->
+<workbook original-version='10.3' source-build='10.3.10 (10300.18.0401.1240)' source-platform='mac' version='10.3' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource caption='dfs.temp' inline='true' name='federated.11x4nyz0jnueq412jslnz03sq32o' version='10.3'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='10.250.101.20' name='drill.0y8zgbx0o466cu14c9lge0i5hgqr'>
+            <connection authentication='Basic Authentication' class='drill' connection-type='Direct' odbc-connect-string-extras='' port='31010' schema='dfs.tmp' server='10.250.101.20' service='' username='mapr' />
+          </named-connection>
+        </named-connections>
+        <relation connection='drill.0y8zgbx0o466cu14c9lge0i5hgqr' name='aca_open_payments' table='[dfs.tmp].[aca_open_payments]' type='table' />
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>recipient_country</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[recipient_country]</local-name>
+            <parent-name>[aca_open_payments]</parent-name>
+            <remote-alias>recipient_country</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>65535</width>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_VARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_CHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipient_state</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[recipient_state]</local-name>
+            <parent-name>[aca_open_payments]</parent-name>
+            <remote-alias>recipient_state</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>65535</width>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_VARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_CHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>physician_specialty</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[physician_specialty]</local-name>
+            <parent-name>[aca_open_payments]</parent-name>
+            <remote-alias>physician_specialty</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>65535</width>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_VARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_CHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipient_zip</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[recipient_zip]</local-name>
+            <parent-name>[aca_open_payments]</parent-name>
+            <remote-alias>recipient_zip</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>65535</width>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_VARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_CHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>payer</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[payer]</local-name>
+            <parent-name>[aca_open_payments]</parent-name>
+            <remote-alias>payer</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>65535</width>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_VARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_CHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>nature_of_payment</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[nature_of_payment]</local-name>
+            <parent-name>[aca_open_payments]</parent-name>
+            <remote-alias>nature_of_payment</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>65535</width>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_VARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_CHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>us_dollars</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[us_dollars]</local-name>
+            <parent-name>[aca_open_payments]</parent-name>
+            <remote-alias>us_dollars</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_DOUBLE&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_DOUBLE&quot;</attribute>
+            </attributes>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='Nature Of Payment' datatype='string' name='[nature_of_payment]' role='dimension' type='nominal' />
+      <column caption='Payer' datatype='string' name='[payer]' role='dimension' type='nominal' />
+      <column caption='Physician Specialty' datatype='string' name='[physician_specialty]' role='dimension' type='nominal' />
+      <column caption='Recipient Country' datatype='string' name='[recipient_country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
+      <column caption='Recipient State' datatype='string' name='[recipient_state]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
+      <column caption='Recipient Zip' datatype='string' name='[recipient_zip]' role='dimension' semantic-role='[ZipCode].[Name]' type='nominal' />
+      <column caption='Us Dollars' datatype='integer' datatype-customized='true' name='[us_dollars]' role='measure' type='quantitative' />
+      <column-instance column='[nature_of_payment]' derivation='Attribute' name='[attr:nature_of_payment:nk]' pivot='key' type='nominal' />
+      <column-instance column='[nature_of_payment]' derivation='None' name='[none:nature_of_payment:nk]' pivot='key' type='nominal' />
+      <column-instance column='[payer]' derivation='None' name='[none:payer:nk]' pivot='key' type='nominal' />
+      <column-instance column='[physician_specialty]' derivation='None' name='[none:physician_specialty:nk]' pivot='key' type='nominal' />
+      <column-instance column='[recipient_zip]' derivation='None' name='[none:recipient_zip:nk]' pivot='key' type='nominal' />
+      <group hidden='true' name='[Exclusions (Payer,Physician Specialty,Recipient Zip)]' name-style='unqualified' user:auto-column='exclude'>
+        <groupfilter function='crossjoin'>
+          <groupfilter function='level-members' level='[none:payer:nk]' />
+          <groupfilter function='level-members' level='[none:physician_specialty:nk]' />
+          <groupfilter function='level-members' level='[none:recipient_zip:nk]' />
+        </groupfilter>
+      </group>
+      <layout dim-ordering='alphabetic' dim-percentage='0.500534' measure-ordering='alphabetic' measure-percentage='0.499466' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[none:nature_of_payment:nk]' type='palette'>
+            <map to='#499894'>
+              <bucket>&quot;Honoraria&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Charitable Contribution&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Education&quot;</bucket>
+            </map>
+            <map to='#76b7b2'>
+              <bucket>&quot;Travel and Lodging&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Royalty or License&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Compensation for services other than consulting, including serving as faculty or as a speaker at a venue other than a continuing education program&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Gift&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Food and Beverage&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Grant&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Current or prospective ownership or investment interest&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Consulting Fee&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[none:physician_specialty:nk]' type='palette'>
+            <map to='#499894'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Dermatology|Pediatric Dermatology&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Hematology &amp; Oncology&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Obstetrics &amp; Gynecology|Maternal &amp; Fetal Medicine&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Psychiatry &amp; Neurology|Neurology&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Ambulatory Health Care Facilities|Clinic/Center|Public Health, State or Local&quot;</bucket>
+            </map>
+            <map to='#499894'>
+              <bucket>&quot;Dental Providers|Dentist&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Adolescent Medicine&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Neuromusculoskeletal Medicine &amp; OMM&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Pathology|Clinical Pathology/Laboratory Medicine&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Thoracic Surgery (Cardiothoracic Vascular Surgery)&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Other Service Providers|Medical Genetics, Ph.D. Medical Genetics&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Colon &amp; Rectal Surgery&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Endocrinology, Diabetes &amp; Metabolism&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Obstetrics &amp; Gynecology|Critical Care Medicine&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Pediatrics|Pediatric Gastroenterology&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Ambulatory Health Care Facilities|Clinic/Center|Family Planning, Non-Surgical&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Student, Health Care|Student in an Organized Health Care Education/Training Program&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Emergency Medicine|Undersea and Hyperbaric Medicine&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Interventional Cardiology&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Orthopaedic Surgery&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Radiology|Radiation Oncology&quot;</bucket>
+            </map>
+            <map to='#79706e'>
+              <bucket>&quot;Dental Providers|Dentist|Oral and Maxillofacial Surgery&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Dermatology|Procedural Dermatology&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Hepatology&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Obstetrics &amp; Gynecology|Hospice and Palliative Medicine&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Obstetrics &amp; Gynecology|Obstetrics&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Radiology|Diagnostic Radiology&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Dental Providers|Dentist|Endodontics&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Dermatology&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Gastroenterology&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Obstetrics &amp; Gynecology|Female Pelvic Medicine and Reconstructive Surgery&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Physical Medicine &amp; Rehabilitation&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>&quot;Behavioral Health &amp; Social Service Providers|Counselor|Mental Health&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Hospitalist&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Legal Medicine&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Pathology|Anatomic Pathology &amp; Clinical Pathology&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Surgery|Trauma Surgery&quot;</bucket>
+            </map>
+            <map to='#9d7660'>
+              <bucket>&quot;Nursing Service Providers|Registered Nurse|Reproductive Endocrinology/Infertility&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Allergy &amp; Immunology&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Allergy &amp; Immunology&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Neuromusculoskeletal Medicine, Sports Medicine&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Pathology|Dermatopathology&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Urology&quot;</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Other Service Providers|Specialist&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Family Medicine|Sports Medicine&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Rheumatology&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Pain Medicine|Interventional Pain Medicine&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Surgery|Surgical Critical Care&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Group|Single Specialty&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Dermatology|Dermatopathology&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Geriatric Medicine&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Obstetrics &amp; Gynecology|Gynecologic Oncology&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Physical Medicine &amp; Rehabilitation|Pain Medicine&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Chiropractic Providers|Chiropractor&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Physician Assistants &amp; Advanced Practice Nursing Providers|Nurse Practitioner|Critical Care Medicine&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Family Medicine&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Medical Oncology&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Orthopaedic Surgery|Orthopaedic Surgery of the Spine&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Radiology|Vascular &amp; Interventional Radiology&quot;</bucket>
+            </map>
+            <map to='#bab0ac'>
+              <bucket>&quot;Dental Providers|Dentist|Pediatric Dentistry&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Family Medicine|Adult Medicine&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Nephrology&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Otolaryngology&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Surgery&quot;</bucket>
+            </map>
+            <map to='#d37295'>
+              <bucket>&quot;Dental Providers|Dentist|Periodontics&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|General Practice&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Transplant Hepatology&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Pain Medicine|Pain Medicine&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Surgery|Surgical Oncology&quot;</bucket>
+            </map>
+            <map to='#d4a6c8'>
+              <bucket>&quot;Hospitals|General Acute Care Hospital|Critical Access&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Neurological Surgery&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Pathology|Blood Banking &amp; Transfusion Medicine&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Surgery|Vascular Surgery&quot;</bucket>
+            </map>
+            <map to='#d7b5a6'>
+              <bucket>&quot;Other Service Providers|Legal Medicine&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Emergency Medicine&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Hospice and Palliative Medicine&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Obstetrics &amp; Gynecology|Reproductive Endocrinology&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Psychiatry &amp; Neurology|Child &amp; Adolescent Psychiatry&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Radiology|Diagnostic Ultrasound&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Dental Providers|Dentist|General Practice&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Dermatology|MOHS-Micrographic Surgery&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Hematology&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Obstetrics &amp; Gynecology|Gynecology&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Physical Medicine &amp; Rehabilitation|Sports Medicine&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Chiropractic Providers|Chiropractor|Rehabilitation&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Anesthesiology&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Cardiovascular Disease&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Nuclear Medicine|Nuclear Cardiology&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Pediatrics&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Urology|Female Pelvic Medicine and Reconstructive Surgery&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Physician Assistants &amp; Advanced Practice Nursing Providers|Nurse Practitioner|Gerontology&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Family Medicine|Hospice and Palliative Medicine&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Pulmonary Disease&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Otolaryngology|Otology &amp; Neurotology&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Surgery|Plastic and Reconstructive Surgery&quot;</bucket>
+            </map>
+            <map to='#fabfd2'>
+              <bucket>&quot;Dental Providers|Dentist|Prosthodontics&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Emergency Medicine|Emergency Medical Services&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Infectious Disease&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Ophthalmology&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Radiology|Neuroradiology&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Dental Providers|Dentist|Oral and Maxillofacial Pathology&quot;</bucket>
+            </map>
+            <map to='#ff9d9a'>
+              <bucket>&quot;Physician Assistants &amp; Advanced Practice Nursing Providers|Physician Assistant|Medical&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Anesthesiology|Addiction Medicine&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Anesthesiology|Pain Medicine&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Internal Medicine|Clinical Cardiac Electrophysiology&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Obstetrics &amp; Gynecology&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Allopathic &amp; Osteopathic Physicians|Pediatrics|Pediatric Cardiology&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Ambulatory Health Care Facilities|Clinic/Center|Community Health&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Podiatric Medicine &amp; Surgery Service Providers|Podiatrist|Foot &amp; Ankle Surgery&quot;</bucket>
+            </map>
+          </encoding>
+          <encoding attr='color' field='[attr:nature_of_payment:nk]' type='palette'>
+            <map to='#499894'>
+              <bucket>&quot;Honoraria&quot;</bucket>
+            </map>
+            <map to='#4e79a7'>
+              <bucket>&quot;Charitable Contribution&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Education&quot;</bucket>
+            </map>
+            <map to='#76b7b2'>
+              <bucket>&quot;Travel and Lodging&quot;</bucket>
+            </map>
+            <map to='#86bcb6'>
+              <bucket>&quot;Royalty or License&quot;</bucket>
+            </map>
+            <map to='#8cd17d'>
+              <bucket>%many-values%</bucket>
+            </map>
+            <map to='#a0cbe8'>
+              <bucket>&quot;Compensation for services other than consulting, including serving as faculty or as a speaker at a venue other than a continuing education program&quot;</bucket>
+            </map>
+            <map to='#b6992d'>
+              <bucket>&quot;Gift&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Food and Beverage&quot;</bucket>
+            </map>
+            <map to='#f1ce63'>
+              <bucket>&quot;Grant&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Current or prospective ownership or investment interest&quot;</bucket>
+            </map>
+            <map to='#ffbe7d'>
+              <bucket>&quot;Consulting Fee&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <field-sort-info field-sort-order-type='custom-order'>
+        <field-sort-custom-order field='physician_specialty' />
+        <field-sort-custom-order field='total' />
+      </field-sort-info>
+    </datasource>
+  </datasources>
+  <mapsources>
+    <mapsource name='Tableau' />
+  </mapsources>
+  <worksheets>
+    <worksheet name='Sheet 1'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>ACA Physician Payments by Specialty</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='dfs.temp' name='federated.11x4nyz0jnueq412jslnz03sq32o' />
+          </datasources>
+          <mapsources>
+            <mapsource name='Tableau' />
+          </mapsources>
+          <datasource-dependencies datasource='federated.11x4nyz0jnueq412jslnz03sq32o'>
+            <column-instance column='[nature_of_payment]' derivation='Attribute' name='[attr:nature_of_payment:nk]' pivot='key' type='nominal' />
+            <column-instance column='[physician_specialty]' derivation='Attribute' name='[attr:physician_specialty:nk]' pivot='key' type='nominal' />
+            <column caption='Nature Of Payment' datatype='string' name='[nature_of_payment]' role='dimension' type='nominal' />
+            <column-instance column='[payer]' derivation='None' name='[none:payer:nk]' pivot='key' type='nominal' />
+            <column-instance column='[physician_specialty]' derivation='None' name='[none:physician_specialty:nk]' pivot='key' type='nominal' />
+            <column-instance column='[recipient_zip]' derivation='None' name='[none:recipient_zip:nk]' pivot='key' type='nominal' />
+            <column caption='Payer' datatype='string' name='[payer]' role='dimension' type='nominal' />
+            <column caption='Physician Specialty' datatype='string' name='[physician_specialty]' role='dimension' type='nominal' />
+            <column caption='Recipient Zip' datatype='string' name='[recipient_zip]' role='dimension' semantic-role='[ZipCode].[Name]' type='nominal' />
+            <column-instance column='[us_dollars]' derivation='Sum' name='[sum:us_dollars:qk]' pivot='key' type='quantitative' />
+            <column caption='Us Dollars' datatype='integer' datatype-customized='true' name='[us_dollars]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.11x4nyz0jnueq412jslnz03sq32o].[Exclusions (Payer,Physician Specialty,Recipient Zip)]'>
+            <groupfilter function='except' user:ui-domain='database' user:ui-enumeration='exclusive' user:ui-marker='enumerate'>
+              <groupfilter function='crossjoin'>
+                <groupfilter function='level-members' level='[none:payer:nk]' />
+                <groupfilter function='level-members' level='[none:physician_specialty:nk]' />
+                <groupfilter function='level-members' level='[none:recipient_zip:nk]' />
+              </groupfilter>
+              <groupfilter function='reorder-dimensionality'>
+                <groupfilter function='crossjoin'>
+                  <groupfilter function='member' level='[none:payer:nk]' member='&quot;Leading Edge Spinal Implants LLC&quot;' />
+                  <groupfilter function='crossjoin'>
+                    <groupfilter function='member' level='[none:recipient_zip:nk]' member='&quot;80303&quot;' />
+                    <groupfilter function='union'>
+                      <groupfilter function='member' level='[none:physician_specialty:nk]' member='&quot;&quot;' />
+                      <groupfilter function='member' level='[none:physician_specialty:nk]' member='&quot;Allopathic &amp; Osteopathic Physicians|Neurological Surgery&quot;' />
+                    </groupfilter>
+                  </groupfilter>
+                </groupfilter>
+                <order>
+                  <hierarchy name='[none:payer:nk]' />
+                  <hierarchy name='[none:physician_specialty:nk]' />
+                  <hierarchy name='[none:recipient_zip:nk]' />
+                </order>
+              </groupfilter>
+            </groupfilter>
+          </filter>
+          <slices>
+            <column>[federated.11x4nyz0jnueq412jslnz03sq32o].[Exclusions (Payer,Physician Specialty,Recipient Zip)]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[federated.11x4nyz0jnueq412jslnz03sq32o].[Longitude (generated)]' field-type='quantitative' max='-6069950.9881945429' min='-16133105.707475387' projection='EPSG:3857' range-type='fixed' scope='cols' type='space' />
+            <encoding attr='space' class='0' field='[federated.11x4nyz0jnueq412jslnz03sq32o].[Latitude (generated)]' field-type='quantitative' max='7829479.2321275361' min='1463833.8982453006' projection='EPSG:3857' range-type='fixed' scope='rows' type='space' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='size' field='[federated.11x4nyz0jnueq412jslnz03sq32o].[sum:us_dollars:qk]' field-type='quantitative' max='40000' max-size='1' min='1' min-size='0' type='quantsize' />
+          </style-rule>
+          <style-rule element='legend-title-text'>
+            <format attr='color' field='[federated.11x4nyz0jnueq412jslnz03sq32o].[attr:nature_of_payment:nk]' value='Nature of Payments&#10;'>
+              <formatted-text>
+                <run bold='true'>Nature of Payments</run>
+                <run>Æ&#10;</run>
+              </formatted-text>
+            </format>
+            <format attr='map' value='2018 Population by Zip Code'>
+              <formatted-text>
+                <run bold='true'>2018 Population by Zip Code</run>
+              </formatted-text>
+            </format>
+          </style-rule>
+          <style-rule element='map-layer'>
+            <format attr='enabled' id='tab_base' value='true' />
+            <format attr='enabled' id='um_lcover' value='false' />
+            <format attr='enabled' id='tab_coastline' value='false' />
+            <format attr='enabled' id='pp2_line' value='false' />
+            <format attr='enabled' id='light_adm0_bnd' value='false' />
+            <format attr='enabled' id='light_adm0_lbl' value='false' />
+            <format attr='enabled' id='um_adm0_bnd' value='true' />
+            <format attr='enabled' id='um_adm0_lbl' value='false' />
+            <format attr='enabled' id='light_pp2_statebounds' value='false' />
+            <format attr='enabled' id='light_pp2_statelabels' value='false' />
+            <format attr='enabled' id='pp2_adminlabels' value='false' />
+            <format attr='enabled' id='pp2_statebounds' value='true' />
+            <format attr='enabled' id='pp2_statelabels' value='false' />
+            <format attr='enabled' id='countybounds' value='false' />
+            <format attr='enabled' id='countylabels' value='false' />
+            <format attr='enabled' id='zipbounds' value='false' />
+            <format attr='enabled' id='ziplabels' value='false' />
+            <format attr='enabled' id='tab_areabounds' value='false' />
+            <format attr='enabled' id='tab_arealabels' value='false' />
+            <format attr='enabled' id='tab_msabounds' value='false' />
+            <format attr='enabled' id='tab_msalabels' value='false' />
+            <format attr='enabled' id='181657' value='true' />
+            <format attr='enabled' id='181658' value='false' />
+            <format attr='enabled' id='181686' value='false' />
+            <format attr='enabled' id='181708' value='false' />
+            <format attr='enabled' id='181730' value='false' />
+            <format attr='enabled' id='181732' value='false' />
+            <format attr='enabled' id='181795' value='false' />
+            <format attr='enabled' id='181796' value='false' />
+            <format attr='enabled' id='181794' value='false' />
+            <format attr='enabled' id='181866' value='false' />
+            <format attr='enabled' id='181797' value='false' />
+            <format attr='enabled' id='181793' value='false' />
+            <format attr='enabled' id='181799' value='false' />
+            <format attr='enabled' id='181798' value='false' />
+            <format attr='enabled' id='182057' value='false' />
+            <format attr='enabled' id='182484' value='false' />
+            <format attr='enabled' id='182485' value='false' />
+            <format attr='enabled' id='182486' value='false' />
+            <format attr='enabled' id='181661' value='false' />
+            <format attr='enabled' id='181662' value='false' />
+            <format attr='enabled' id='181951' value='false' />
+            <format attr='enabled' id='182071' value='false' />
+            <format attr='enabled' id='182099' value='false' />
+            <format attr='enabled' id='181665' value='false' />
+            <format attr='enabled' id='181666' value='false' />
+            <format attr='enabled' id='182041' value='false' />
+            <format attr='enabled' id='182048' value='false' />
+            <format attr='enabled' id='182002' value='false' />
+            <format attr='enabled' id='182003' value='false' />
+            <format attr='enabled' id='181943' value='false' />
+          </style-rule>
+          <style-rule element='map'>
+            <format attr='washout' value='0.5' />
+            <format attr='map-style' value='' />
+          </style-rule>
+          <style-rule element='map-data-layer'>
+            <format attr='palette' value='area-green-light' />
+            <format attr='geo-area-type' value='Zip Code' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Circle' />
+            <mark-sizing mark-sizing-setting='marks-scaling-off' />
+            <encodings>
+              <tooltip column='[federated.11x4nyz0jnueq412jslnz03sq32o].[attr:physician_specialty:nk]' />
+              <color column='[federated.11x4nyz0jnueq412jslnz03sq32o].[attr:nature_of_payment:nk]' />
+              <lod column='[federated.11x4nyz0jnueq412jslnz03sq32o].[none:payer:nk]' />
+              <lod column='[federated.11x4nyz0jnueq412jslnz03sq32o].[none:recipient_zip:nk]' />
+              <size column='[federated.11x4nyz0jnueq412jslnz03sq32o].[sum:us_dollars:qk]' />
+            </encodings>
+            <customized-tooltip>
+              <formatted-text>
+                <run fontcolor='#787878'>Physician Specialty:&#9;</run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#787878'>Nature Of Payment:&#9;</run>
+                <run bold='true'>&lt;[federated.11x4nyz0jnueq412jslnz03sq32o].[attr:nature_of_payment:nk]&gt;</run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#787878'>Payer:&#9;</run>
+                <run bold='true'>&lt;[federated.11x4nyz0jnueq412jslnz03sq32o].[none:payer:nk]&gt;</run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#787878'>Recipient Zip:&#9;</run>
+                <run bold='true'>&lt;[federated.11x4nyz0jnueq412jslnz03sq32o].[none:recipient_zip:nk]&gt;</run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#787878'>Us Dollars:&#9;</run>
+                <run fontcolor='#000000'>$</run>
+                <run bold='true'>&lt;[federated.11x4nyz0jnueq412jslnz03sq32o].[sum:us_dollars:qk]&gt;</run>
+              </formatted-text>
+            </customized-tooltip>
+            <style>
+              <style-rule element='mark'>
+                <format attr='size' value='1.7031491994857788' />
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='false' />
+                <format attr='mark-transparency' value='255' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.11x4nyz0jnueq412jslnz03sq32o].[Latitude (generated)]</rows>
+        <cols>[federated.11x4nyz0jnueq412jslnz03sq32o].[Longitude (generated)]</cols>
+      </table>
+    </worksheet>
+  </worksheets>
+  <windows pres-mode='true' source-height='30'>
+    <window class='worksheet' maximized='true' name='Sheet 1'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' type='map' />
+            <card pane-specification-id='0' param='[federated.11x4nyz0jnueq412jslnz03sq32o].[attr:nature_of_payment:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <selection-collection>
+          <tuple-selection>
+            <tuple-reference>
+              <tuple-descriptor>
+                <pane-descriptor>
+                  <x-fields>
+                    <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[Longitude (generated)]</field>
+                  </x-fields>
+                  <y-fields>
+                    <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[Latitude (generated)]</field>
+                  </y-fields>
+                </pane-descriptor>
+                <columns>
+                  <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[none:payer:nk]</field>
+                  <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[none:physician_specialty:nk]</field>
+                  <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[none:recipient_zip:nk]</field>
+                  <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[sum:us_dollars:qk]</field>
+                  <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[Latitude (generated)]</field>
+                  <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[Longitude (generated)]</field>
+                  <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[attr:nature_of_payment:nk]</field>
+                </columns>
+              </tuple-descriptor>
+              <tuple>
+                <value>&quot;Leading Edge Spinal Implants LLC&quot;</value>
+                <value>&quot;Allopathic &amp; Osteopathic Physicians|Neurological Surgery&quot;</value>
+                <value>&quot;80303&quot;</value>
+                <value>1360000</value>
+                <value>40.0075</value>
+                <value>-105.2535</value>
+                <value>&quot;Current or prospective ownership or investment interest&quot;</value>
+              </tuple>
+            </tuple-reference>
+          </tuple-selection>
+        </selection-collection>
+        <highlight>
+          <color-one-way>
+            <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[attr:nature_of_payment:nk]</field>
+            <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[none:nature_of_payment:nk]</field>
+            <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[none:payer:nk]</field>
+            <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[none:physician_specialty:nk]</field>
+            <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[none:recipient_country:nk]</field>
+            <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[none:recipient_state:nk]</field>
+            <field>[federated.11x4nyz0jnueq412jslnz03sq32o].[none:recipient_zip:nk]</field>
+          </color-one-way>
+        </highlight>
+        <default-map-tool-selection tool='1' />
+        <default-map-unit-selection mapunit='2' />
+      </viewpoint>
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='192' name='Sheet 1' width='192'>
+      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
+      P6PWU3yVx3f4AAAAAElFTkSuQmCC
+    </thumbnail>
+  </thumbnails>
+</workbook>
