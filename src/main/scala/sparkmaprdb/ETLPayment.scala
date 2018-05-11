@@ -42,7 +42,7 @@ object ETLPayment {
   
 
   def createPaymentwId(p: Payment): PaymentwId = {
-    val id = p.physician_id + '_' + p.date_payment + '_' + p.record_id
+    val id = p.physician_id + '_' + p.date_payment + '_' + p._id
     PaymentwId(id, p.physician_id, p.date_payment, p.payer, p.amount, p.physician_specialty, p.nature_of_payment, p.physician_name_first, p.physician_name_middle, p.physician_name_last, p.physician_name_suffix, p.recipient_city, p.recipient_state, p.recipient_zip, p.recipient_country)
   }
 

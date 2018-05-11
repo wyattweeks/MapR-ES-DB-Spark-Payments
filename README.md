@@ -192,11 +192,17 @@ To connect tableau desktop to the Drill service on your SE Cluster deployment:
         
 
 #### 10  Other References:
+
 [Carol's Blog](https://mapr.com/blog/streaming-data-pipeline-transform-store-explore-healthcare-dataset-mapr-db/) from which this Demo originated.  Thanks Carol!
+
 [SE private Git Repository for this Demo](http://git.se.corp.maprtech.com/wweeks/MapR-ES-DB-Spark-Payments.git) , the master repo for this SE Cluster version of the Demo.
+
 [Tableau Desktop Licenses for SE's](https://docs.google.com/spreadsheets/d/1A1OGD0mY-eLSBM7hgU7eRx45PXt4oohRVv6493IdJJM/edit#gid=193582544) , as tracked by the FE team.
+
 [mapr-db-60-getting-started](https://github.com/mapr-demos/mapr-db-60-getting-started) to learn Discover how to use DB Shell, Drill and OJAI to query and update documents, but also how to use indexes.
-[Ojai 2.0 Examples](https://github.com/mapr-demos/ojai-2-examples) to learn more about OJAI 2.0 features
+
+[Ojai 2.0 Examples](https://github.com/mapr-demos/ojai-2-examples) to learn more about OJAI 2.0 features.
+
 [MapR-DB Change Data Capture](https://github.com/mapr-demos/mapr-db-cdc-sample) to capture database events such as insert, update, delete and react to this events.
 
 #### End
