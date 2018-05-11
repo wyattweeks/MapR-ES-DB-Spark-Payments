@@ -24,17 +24,17 @@ This example will show you how to work with MapR-ES, Spark Streaming, and MapR-D
 
 ## Demo: Step-by-Step
 
-### 0 - Launching the demo cluster
+### 1 Launching the demo cluster
    - open the drill ports
 
-### 1 - Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
-        This java publisher client will read lines from the payments.csv and publish them in the same format (comma-delimited strings) to the MapR Stream:topic @ /streams/paystream:payments
-        The paystream:payments stream:topic can be viewed in MCS @ path /mapr/${MAPR_CLUSTER}/user/mapr/demo.mapr.com/streams/paystream
+### 2 Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
+      This java publisher client will read lines from the payments.csv and publish them in the same format (comma-delimited strings) to the MapR Stream:topic @ /streams/paystream:payments
+      The paystream:payments stream:topic can be viewed in MCS @ path /mapr/${MAPR_CLUSTER}/user/mapr/demo.mapr.com/streams/paystream
         
-        To launch the producer: In a new terminal window, ssh to the cluster edge node as mapr and:
+      To launch the producer: In a new terminal window, ssh to the cluster edge node as mapr and:
 
-            cd /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments
-            java -cp /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
+        cd /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments
+        java -cp /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
 
 
 ### 2 - Consume and transform the streaming data with Spark Streaming and the Kafka API, and
