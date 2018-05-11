@@ -1,20 +1,12 @@
 # Heathcare Data - Streaming ETL Pipeline and Data Exploration 
 ## (Using Spark, JSON, MapR-DB, MapR-ES, Drill, and Tableau)
-
-### Git Repo for Project
-MapR-ES-DB-Spark-Payments project has been cloned to /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments (source = git clone http://git.se.corp.maprtech.com/wweeks/MapR-ES-DB-Spark-Payments.git)
-Manually refresh when repo changes (see steps below)
-maven rebuilds jars in /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target
-
-    How to manually refresh the project on /public_data, from se git repo:
-        1 - ssh to jump box as mapr
-        2 - $ cd /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments
-        3 - $ git pull 
-        4 - $ mvn clean install
+This Demonstration was adapted for deployment on the MapR SE CLuster, from Carol McDonald's blog @ https://mapr.com/blog/streaming-data-pipeline-transform-store-explore-healthcare-dataset-mapr-db/
+Tableau Visualizations, Drill views, and ingesting additional data fields, were added to the original content.
 
 ## Introduction
 
-This example will show you how to work with MapR-ES, Spark Streaming, and MapR-DB JSON :
+This example will demonstrate working with MapR-ES, Spark Streaming, MapR-DB JSON, Drill, and Tableau on MapR-DB.
+
 - Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
 - Consume and transform the streaming data with Spark Streaming and the Kafka API, and Transform the data into JSON format and save to the MapR-DB document database using the Spark-DB connector.
 - Load data into Spark Dataset: Query the MapR-DB JSON document database with Spark-SQL, using the Spark-DB connector
@@ -22,64 +14,53 @@ This example will show you how to work with MapR-ES, Spark Streaming, and MapR-D
 - Query the MapR-DB document database using Java and the OJAI library
 - connect Tableau desktop and run a report that is regularly updated with new data that is streaming into MapR.
 
-
 ## Demo: Step-by-Step
 
-#### 1  Launching the demo cluster
-open the drill ports
+#### 1  Publish the 'ACA Medicare Open Payments' dataset into MapR-ES (using the MapR Kafka API)
+This simple producer client application reads lines from the payments.csv file and publishes them in their original comma-delimited format, to the MapR Stream:topic @ /streams/paystream:payments.
 
-#### 2  Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
-This java publisher client will read lines from the payments.csv and publish them in the same format (comma-delimited strings to the MapR Stream:topic @ /streams/paystream:payments.
-
-The paystream:payments stream:topic can be viewed in MCS @ path /mapr/${MAPR_CLUSTER}/user/mapr/demo.mapr.com/streams/paystream
+The paystream:payments stream:topic can be viewed in MCS @ path /mapr/${MAPR_CLUSTER/user/mapr/demo.mapr.com/streams/paystream
         
-To launch the producer: In a new terminal window, ssh to the cluster edge node as mapr and:
+To launch the producer: In a new terminal window, ssh to the cluster edge node as 'mapr' and:
 
         cd /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments
         java -cp /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
 
 
-### 2 - Consume and transform the streaming data with Spark Streaming and the Kafka API, and
-        Transform the data into JSON format and save to the MapR-DB document database using the Spark-DB connector.
-        This Spark Streaming consumer client does the following:
-            - consumes data from the MapR stream:topic @ /streams/paystream:payments using the Kafka API, then
-            - transforms the comma-delimited string consumed from the stream, into JSON format, then
-            - writes the JSON array, to the MapR-DB JSON table 'payments' using the Spark-DB connector.
+#### 2  Read the MapR-ES topic and transform the data with Spark Streaming (using the MapR-ES Kafka API), and write to MapR-DB (using the Spark MapR-DB connector)
+This Spark-Streaming consumer client application accomplishes three tasks:  First, it reads each incoming message from the MapR stream:topic @ /streams/paystream:payments using the MapR Kafka API. Then, the data is loaded into Spark RDD's (in mempory) and transformed with Spark Streaming, to JSON format. And lastly, each record (JSON array) is written to the 'payments' table in the MapR-DB document database.
  
-        The 'payments' table can be viewed in MCS @ path /user/mapr/demo.mapr.com/tables/payments
+The MapR-DB JSON 'payments' table can be viewed in MCS @ path /user/mapr/demo.mapr.com/tables/payments
 
-        For presentation purposes, you may more than one consumer client manually, from a separate terminal window
-        Note: you'll see the client looking for data in the stream, but unless you stop the auto-deployed consumer, it won't actually consume data from the stream,
-        as the original consumer client is capable of consuming all the data being produced.  OR the original consumer client may fail (due to a conflict in reading 
-        from the stream partition), in which case, this newly launched consumer will pick up where the other left off) See future enhancement on this.
+To launch the consumer: In a new terminal window, ssh to the cluster edge node as 'mapr' and:
 
-        To launch the consumer: In a new terminal window, ssh to the cluster edge node as mapr and:
-
-            $SPARK_PATH/bin/spark-submit --class streaming.SparkKafkaConsumer --master local[2] /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
+        $SPARK_PATH/bin/spark-submit --class streaming.SparkKafkaConsumer --master local[2] /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
-### 3 - Load data into Spark Dataset AND Query the MapR-DB JSON document database using Spark-SQL, using the MapR-DB Spark connector
+#### 3  Query the payments table in MapR-DB JSON, with Spark SQL
+This spark job loads data from MapR-DB JSON (using the MapR-DB Spark connector), into a Spark Dataset (an in-memory RDD optimized for performance), then runs Spark-SQL to query that data
 
-        In a new terminal window, ssh to the cluster edge node as mapr and:
+In a new terminal window, ssh to the cluster edge node as 'mapr' and:
 
-            $SPARK_PATH/bin/spark-submit --class sparkmaprdb.QueryPayment --master local[2] ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
-
-
-### 4 - Query the MapR-DB document database using Apache Drill (JDBC)
-
-        To show the Top 10 physician specialties by total payments
-
-            sqlline
-            select physician_specialty,sum(amount) as total from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_specialty order by total desc limit 10;
-            quit!
+        $SPARK_PATH/bin/spark-submit --class sparkmaprdb.QueryPayment --master local[2] /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
-### 5 - Query the MapR-DB document database using Java and the OJAI library - optional
-        OJAI, the Java API used to access MapR-DB JSON, leverages the same query engine as MapR-DB Shell and Apache Drill to query payments table
+#### 4  Query the MapR-DB document database using Apache Drill (via JDBC)
+Apache Drill is an open source, low-latency query engine for big data that delivers interactive SQL analytics at petabyte scale. Drill provides a massively parallel processing execution engine, built to perform distributed query processing across the various nodes in a cluster.
 
-        To Query the MapR-DB payments table using OJAI
+Show me the 10 physician specialties having the highest total of recorded payments:
 
-            $SPARK_PATH/bin/spark-submit --class maprdb.OJAI_SimpleQuery --master local[2] --jars /opt/mapr/drill/jars/jdbc-driver/drill-jdbc-all-1.11.0.jar ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
+        sqlline
+        select physician_specialty,sum(amount) as total from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_specialty order by total desc limit 10;
+        quit!
+
+
+#### 5 - Query the MapR-DB document database using Java and the OJAI library
+OJAI, is the opes source Java API used to access MapR-DB JSON.  It leverages the same query engine as MapR-DB Shell and Apache Drill to query the payments table.
+
+To Query the MapR-DB payments table using OJAI:
+
+        $SPARK_PATH/bin/spark-submit --class maprdb.OJAI_SimpleQuery --master local[2] --jars /opt/mapr/drill/jars/jdbc-driver/drill-jdbc-all-1.11.0.jar /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
 #### 6. Using the MapR-DB shell and Drill from your mac client - JSON documents

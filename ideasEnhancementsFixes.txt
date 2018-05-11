@@ -22,6 +22,17 @@ to finish project:
 # WW - FUTURE enhancement - add Drill query on Mapr-ES
 # get cluster check script to work in demosetup.sh (currently commented out)
 
+### Git Repo for Project
+MapR-ES-DB-Spark-Payments project has been cloned to /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments (source = git clone http://git.se.corp.maprtech.com/wweeks/MapR-ES-DB-Spark-Payments.git)
+Manually refresh when repo changes (see steps below)
+maven rebuilds jars in /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target
+
+ To refresh the project code on /public_data (from se git repo):
+        1 - ssh to the edge node of your deployment as user 'mapr'
+        2 - $ cd /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments
+        3 - $ git pull 
+        4 - $ mvn clean install
+
 
 create multiple topics, so can run 3 consumers / 2 producers --- amend demosetup.sh to create additional topics AND readme script to 
 launch 3 versions of producers/consumers, via run-time arguments in carol's original code (optionally)
@@ -39,14 +50,10 @@ this change takes care or the to do note below
 #
 
 
-is this needed?  possible?
-## 2 - Consume and transform the streaming data with Spark Streaming and the Kafka API.
-#
-# This Spark Streaming consumer client does the following:
-#      - consumes data from the MapR stream:topic @ /streams/paystream:payments using the Kafka API, then
-#      - transforms the comma-delimited string consumed from the stream, into JSON format, then
-#      - writes the JSON array, directly to the MapR-DB JSON table 'payments'.
-# #########       (NOTE: future enhancement will use MapR-DB REST for write to table)
+For presentation purposes, you may more than one consumer client manually, from a separate terminal window
+        Note: you'll see the client looking for data in the stream, but unless you stop the auto-deployed consumer, it won't actually consume data from the stream,
+        as the original consumer client is capable of consuming all the data being produced.  OR the original consumer client may fail (due to a conflict in reading 
+        from the stream partition), in which case, this newly launched consumer will pick up where the other left off) See future enhancement on this.
 
 
 # Git Clone MapR-ES-DB-Spark-Payments project - done @  /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments (git clone http://git.se.corp.maprtech.com/wweeks/MapR-ES-DB-Spark-Payments.git)

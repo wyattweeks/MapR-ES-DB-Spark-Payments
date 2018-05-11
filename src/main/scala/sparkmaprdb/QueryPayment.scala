@@ -23,11 +23,19 @@ object QueryPayment {
     @JsonProperty("payer") payer: String,
     @JsonProperty("amount") amount: Double,
     @JsonProperty("physician_specialty") physician_specialty: String,
-    @JsonProperty("nature_of_payment") nature_of_payment: String
+    @JsonProperty("nature_of_payment") nature_of_payment: String,
+    @JsonProperty("physician_name_first") physician_name_first: String,
+    @JsonProperty("physician_name_middle") physician_name_middle: String,
+    @JsonProperty("physician_name_last") physician_name_last: String,
+    @JsonProperty("physician_name_suffix") physician_name_suffix: String,
+    @JsonProperty("recipient_city") recipient_city: String,
+    @JsonProperty("recipient_state") recipient_state: String,
+    @JsonProperty("recipient_zip") recipient_zip: String,
+    @JsonProperty("recipient_country") recipient_country: String
   ) extends Serializable
   /*
   case class PaymentwId(_id: String, physician_id: String, date_payment: String, payer: String, amount: Double, physician_specialty: String,
-    nature_of_payment: String) extends Serializable
+    nature_of_payment: String, physician_name_first: String, physician_name_middle: String, physician_name_last: String, physician_name_suffix: String, recipient_city: String, recipient_state: String, recipient_zip: String, recipient_country: String) extends Serializable
 */
   val schema = StructType(Array(
     StructField("_id", StringType, true),
@@ -36,7 +44,15 @@ object QueryPayment {
     StructField("payer", StringType, true),
     StructField("amount", DoubleType, true),
     StructField("physician_specialty", StringType, true),
-    StructField("nature_of_payment", StringType, true)
+    StructField("nature_of_payment", StringType, true),
+    StructField("physician_name_first", StringType, true),
+    StructField("physician_name_middle", StringType, true),
+    StructField("physician_name_last", StringType, true),
+    StructField("physician_name_suffix", StringType, true),
+    StructField("recipient_city", StringType, true),
+    StructField("recipient_state", StringType, true),
+    StructField("recipient_zip", StringType, true),
+    StructField("recipient_country", StringType, true)
   ))
 
   def main(args: Array[String]) {
