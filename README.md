@@ -24,10 +24,10 @@ This example will show you how to work with MapR-ES, Spark Streaming, and MapR-D
 
 ## Demo: Step-by-Step
 
-### 1 Launching the demo cluster
+#### 1  Launching the demo cluster
    - open the drill ports
 
-### 2 Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
+#### 2  Publish using the Kafka API Medicare Open payments data from a CSV file into MapR-ES 
       This java publisher client will read lines from the payments.csv and publish them in the same format (comma-delimited strings) to the MapR Stream:topic @ /streams/paystream:payments
       The paystream:payments stream:topic can be viewed in MCS @ path /mapr/${MAPR_CLUSTER}/user/mapr/demo.mapr.com/streams/paystream
         
