@@ -30,10 +30,12 @@ MCS_PORT=${MCS_PORT:-8443}
 MCS_URL="https://${MCS_HOST}:${MCS_PORT}"
 MAPR_ADMIN=${MAPR_ADMIN:-mapr}
 MAPR_ADMIN_PASSWORD=${MAPR_ADMIN_PASSWORD:-maprmapr}
+MAPR_ZK_HOSTS=${MAPR_ZK_HOSTS:-mapr-zk}
 echo MCS_URL=$MCS_URL >> /etc/profile
 echo MAPR_ADMIN=$MAPR_ADMIN >> /etc/profile
 echo MAPR_ADMIN_PASSWORD=$MAPR_ADMIN_PASSWORD >> /etc/profile
 echo MAPR_CLUSTER=$MAPR_CLUSTER >> /etc/profile
+echo $MAPR_ZK_HOSTS >> /etc/profile
 
 ###set spark path and version to future-proof
 SPARK_VERSION=`apt-cache policy mapr-spark | grep Installed | awk '{print$2}' | cut -c 1-5`
@@ -84,4 +86,9 @@ cp /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/data/payments.csv /ma
 # java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
 
 # Create Drill views on the MapR-DB payments table, for use with queries and Tableau Desktop reports that connect to MapR-DB using Drill
-sqlline --run=/public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/createDrillViews.sql
+sqlline
+sleep 8s
+!run /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/createDrillViews.sql
+sleep 5s
+!quit
+sqlline -f /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/createDrillViews.sql
