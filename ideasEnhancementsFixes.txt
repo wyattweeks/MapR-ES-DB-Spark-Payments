@@ -1,9 +1,9 @@
 
 to finish project:
 
-** reformat readme file
+- get all queries working in DSR notebook and change demo to work there
+- build naritive from carol's blog and post on SE wiki
 
-** remove sudo - not needed 
 
 ** add instructions / template for deployment with drill ports open to outside and public dns 
     - copy deploy template from paul's latest and make these changes and save - then ask him to publish as 'healthcare demo'
