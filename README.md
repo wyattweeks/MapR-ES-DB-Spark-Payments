@@ -1,4 +1,5 @@
-# Streaming ETL Pipeline to Transform, Store and Explore Healthcare Dataset using Spark, JSON, MapR-DB, MapR-ES, Drill, and Tableau
+# Heathcare Data - Streaming ETL Pipeline and Data Exploration 
+## (Using Spark, JSON, MapR-DB, MapR-ES, Drill, and Tableau)
 
 ## Git Repo for Project
 MapR-ES-DB-Spark-Payments project has been cloned to /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments (source = git clone http://git.se.corp.maprtech.com/wweeks/MapR-ES-DB-Spark-Payments.git)
