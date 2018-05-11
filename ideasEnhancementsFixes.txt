@@ -70,3 +70,6 @@ For presentation purposes, you may more than one consumer client manually, from 
 GoogleMaps API for Tableau use 
 #API key = AIzaSyCCVEaGnTYrPh394VS9V2X6gSZRSKkOBy0
 #URL to embed  https://www.google.com/maps/embed/v1/view?key=AIzaSyCCVEaGnTYrPh394VS9V2X6gSZRSKkOBy0&center=39.5501,105.7821&zoom=8&maptype=roadmap
+
+ACA Open Payments Data: MapR-ES-DB-Spark-Tableau on MapR 6.0.1 MEP5.0 DSR1.2-2.1.4
+healthcaredemo-${DEPLOYMENT_HASH}-${USER_NAME}

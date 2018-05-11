@@ -21,14 +21,6 @@ See the SE wiki for the full Demo narrative, with architecture diagrams (http://
 #### 0  Preparing the environment
 deployment steps in Applariat
 
-Create Drill views on the MapR-DB payments table, for use with queries and Tableau Desktop reports that connect to MapR-DB using Drill
-        
-In a new terminal window, ssh to the cluster edge node as 'mapr' and:
- 
-        sqlline
-        !run /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/createDrillViews.sql
-        !quit
-
 
 #### 1  Publish the 'ACA Medicare Open Payments' dataset into MapR-ES (using the MapR Kafka API)
 This simple producer client application reads lines from the payments.csv file and publishes them in their original comma-delimited format, to the MapR Stream:topic @ /streams/paystream:payments.
@@ -55,29 +47,12 @@ To launch the consumer: In a new terminal window, ssh to the cluster edge node a
 Create the Drill views to use in Tableau reports.  Tableau-Drill requires views, and does not access the MapR-DB table directly.
 
 Run these from a terminal window (connected by ssh to the cluster edge node as 'mapr')
-
-To Start Drill shell:
-
+        
+In a new terminal window, ssh to the cluster edge node as 'mapr' and:
+ 
         sqlline
-
-Change your working schema to create Drill views in the dfs.tmp schema:
-
-        use dfs.tmp;
-
-        create or replace view physicians_by_revenue as 
-            select physician_id, sum(amount) as revenue 
-            from dfs.`/user/mapr/demo.mapr.com/tables/payments` 
-            group by physician_id;
-
-        create or replace view physicians_by_specialty_revenue as 
-            select physician_specialty,sum(amount) as total 
-            from dfs.`/user/mapr/demo.mapr.com/tables/payments` 
-            group by physician_specialty;
-
-        create or replace view aca_open_payments as
-            select recipient_country, recipient_state, physician_specialty, recipient_zip, payer, nature_of_payment, (sum(amount)) as us_dollars
-            from dfs.`/user/mapr/demo.mapr.com/tables/payments`
-            GROUP BY recipient_country, recipient_state, recipient_zip, physician_specialty, payer, nature_of_payment;
+        !run /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/createDrillViews.sql
+        !quit
 
 
 #### 4  Query the payments table in MapR-DB JSON, with Spark SQL
