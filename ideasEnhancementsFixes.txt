@@ -3,6 +3,7 @@ to finish project:
 
 - get all queries working in DSR notebook and change demo to work there
 - build naritive from carol's blog and post on SE wiki
+- move create view script to mapr-job.sh
 
 
 ** add instructions / template for deployment with drill ports open to outside and public dns 

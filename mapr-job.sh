@@ -86,9 +86,6 @@ cp /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/data/payments.csv /ma
 # java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
 
 # Create Drill views on the MapR-DB payments table, for use with queries and Tableau Desktop reports that connect to MapR-DB using Drill
-sqlline
-sleep 8s
-!run /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/createDrillViews.sql
-sleep 5s
-!quit
-sqlline -f /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/createDrillViews.sql
+#sqlline
+#!run /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/createDrillViews.sql
+#!quit

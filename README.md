@@ -19,7 +19,15 @@ Important - This readme is a basic explanation and how-to for the technical comp
 See the SE wiki for the full Demo narrative, with architecture diagrams (http://wiki.se.corp.maprtech.com) - do not skip that component.
 
 #### 0  Preparing the environment
-deployment 
+deployment steps in Applariat
+
+Create Drill views on the MapR-DB payments table, for use with queries and Tableau Desktop reports that connect to MapR-DB using Drill
+        
+In a new terminal window, ssh to the cluster edge node as 'mapr' and:
+ 
+        sqlline
+        !run /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/createDrillViews.sql
+        !quit
 
 
 #### 1  Publish the 'ACA Medicare Open Payments' dataset into MapR-ES (using the MapR Kafka API)
