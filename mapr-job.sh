@@ -84,9 +84,4 @@ cp /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/data/payments.csv /ma
 # java -cp ~/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
 
 # Create Drill views on the MapR-DB payments table, for use with queries and Tableau Desktop reports that connect to MapR-DB using Drill
-sqlline
-use dfs.tmp;
-create or replace view physicians_by_revenue as select physician_id, sum(amount) as revenue from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_id;
-create or replace view physicians_by_specialty_revenue as select physician_specialty,sum(amount) as total from dfs.`/user/mapr/demo.mapr.com/tables/payments` group by physician_specialty;
-create or replace view aca_open_payments as select recipient_country, recipient_state, physician_specialty, recipient_zip, payer, nature_of_payment, (sum(amount)) as us_dollars from dfs.`/user/mapr/demo.mapr.com/tables/payments` GROUP BY recipient_country, recipient_state, recipient_zip, physician_specialty, payer, nature_of_payment;
-!quit
+sqlline --run=/public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/createDrillViews.sql

@@ -159,7 +159,7 @@
           <groupfilter function='level-members' level='[none:recipient_zip:nk]' />
         </groupfilter>
       </group>
-      <layout dim-ordering='alphabetic' dim-percentage='0.502283' measure-ordering='alphabetic' measure-percentage='0.497717' show-aliased-fields='true' show-structure='true' />
+      <layout dim-ordering='alphabetic' dim-percentage='0.501142' measure-ordering='alphabetic' measure-percentage='0.498858' show-aliased-fields='true' show-structure='true' />
       <style>
         <style-rule element='mark'>
           <encoding attr='color' field='[none:nature_of_payment:nk]' type='palette'>
@@ -647,8 +647,8 @@
         </view>
         <style>
           <style-rule element='axis'>
-            <encoding attr='space' class='0' field='[federated.11x4nyz0jnueq412jslnz03sq32o].[Longitude (generated)]' field-type='quantitative' max='-11248136.662251091' min='-12043081.756416924' projection='EPSG:3857' range-type='fixed' scope='cols' type='space' />
-            <encoding attr='space' class='0' field='[federated.11x4nyz0jnueq412jslnz03sq32o].[Latitude (generated)]' field-type='quantitative' max='5049568.7329922188' min='4531632.8481166121' projection='EPSG:3857' range-type='fixed' scope='rows' type='space' />
+            <encoding attr='space' class='0' field='[federated.11x4nyz0jnueq412jslnz03sq32o].[Longitude (generated)]' field-type='quantitative' max='-11511484.91148274' min='-11908957.458565656' projection='EPSG:3857' range-type='fixed' scope='cols' type='space' />
+            <encoding attr='space' class='0' field='[federated.11x4nyz0jnueq412jslnz03sq32o].[Latitude (generated)]' field-type='quantitative' max='4925896.1041001119' min='4666928.1616623085' projection='EPSG:3857' range-type='fixed' scope='rows' type='space' />
           </style-rule>
           <style-rule element='mark'>
             <encoding attr='size' field='[federated.11x4nyz0jnueq412jslnz03sq32o].[sum:us_dollars:qk]' field-type='quantitative' max='40000' max-size='1' min='1' min-size='0' type='quantsize' />
@@ -762,7 +762,7 @@
             </customized-tooltip>
             <style>
               <style-rule element='mark'>
-                <format attr='size' value='1.7031491994857788' />
+                <format attr='size' value='6.7580051422119141' />
                 <format attr='mark-labels-cull' value='true' />
                 <format attr='mark-labels-show' value='false' />
                 <format attr='mark-transparency' value='255' />
@@ -775,7 +775,7 @@
       </table>
     </worksheet>
   </worksheets>
-  <windows pres-mode='true' source-height='30'>
+  <windows source-height='30'>
     <window class='worksheet' maximized='true' name='Sheet 1'>
       <cards>
         <edge name='left'>
