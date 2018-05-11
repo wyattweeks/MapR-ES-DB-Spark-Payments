@@ -55,7 +55,19 @@ In a new terminal window, ssh to the cluster edge node as 'mapr' and:
         !quit
 
 
-#### 4  Query the payments table in MapR-DB JSON, with Spark SQL
+#### 4  Connect Tableau and run a report
+This step assumes you have the Tableau desktop installed on your laptop and explains how to connect the desktop client to Drill, running on your SE Cluster deployment.  Tableau trial license keys for SE's are available from the FE team (see References section)
+
+To connect tableau desktop to the Drill service on your SE Cluster deployment:
+
+        Open Tableau Desktop
+        Open the saved report
+        Update the connection settings
+
+
+#### Note: The following capabilities are demonstrated from a command line interface, and therefore may not be applicable to all demonstration audiences.        
+
+#### 5  Query the payments table in MapR-DB JSON, with Spark SQL
 This spark job loads data from MapR-DB JSON (using the MapR-DB Spark connector), into a Spark Dataset (an in-memory RDD optimized for performance), then runs Spark-SQL to query that data
 
 In a new terminal window, ssh to the cluster edge node as 'mapr' and:
@@ -63,7 +75,7 @@ In a new terminal window, ssh to the cluster edge node as 'mapr' and:
         $SPARK_PATH/bin/spark-submit --class sparkmaprdb.QueryPayment --master local[2] /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
-#### 5  Query the MapR-DB document database using Apache Drill (via JDBC)
+#### 6  Query the MapR-DB document database using Apache Drill (via JDBC)
 Apache Drill is an open source, low-latency query engine for big data that delivers interactive SQL analytics at petabyte scale. Drill provides a massively parallel processing execution engine, built to perform distributed query processing across the various nodes in a cluster.
 
 Run these queries from a terminal window (connected by ssh to the cluster edge node as 'mapr') and type 'sqlline' to enter the drill shell.
@@ -102,7 +114,7 @@ To exit Drill shell:
         !quit
 
 
-#### 6  Query the MapR-DB document database using Java and the OJAI library
+#### 7  Query the MapR-DB document database using Java and the OJAI library
 OJAI, is the opes source Java API used to access MapR-DB JSON.  It leverages the same query engine as MapR-DB Shell and Apache Drill to query the payments table.
 
 To Query the MapR-DB payments table using OJAI:
@@ -110,7 +122,7 @@ To Query the MapR-DB payments table using OJAI:
         $SPARK_PATH/bin/spark-submit --class maprdb.OJAI_SimpleQuery --master local[2] --jars /opt/mapr/drill/jars/jdbc-driver/drill-jdbc-all-1.11.0.jar /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
-#### 7  Query the MapR-DB payments table using the MapR-DB shell, dbshell
+#### 8  Query the MapR-DB payments table using the MapR-DB shell, dbshell
 Run these queries from a terminal window (connected by ssh to the cluster edge node as 'mapr')
 
 To start MapR-DB shell:
@@ -143,7 +155,7 @@ To exit MapR-DB shell:
         ctrl-C
 
 
-#### 8  Adding a secondary index to the payments JSON table, to improve query performance
+#### 9  Adding a secondary index to the payments JSON table, to improve query performance
 Run these queries from a terminal window (connected by ssh to the cluster edge node as 'mapr')
 
 Run db-shell queries, without a secondary index on the payments table, and note query performance:
@@ -165,14 +177,6 @@ Again,run db-shell queries on payments table, and compare with query performance
         /opt/mapr/bin/mapr dbshell
         find /apps/payments --where '{ "$eq" : {"payer":"Mission Pharmacal Company"} }' --f _id,payer,amount,nature_of_payment
         ctrl-c
-
-
-#### 9  Connect Tableau and open a saved report
-This step assumes you have the Tableau desktop installed on your laptop and explains how to connect the desktop client to Drill, running on your SE Cluster deployment.  Tableau trial license keys for SE's are available from the FE team (see References section)
-
-To connect tableau desktop to the Drill service on your SE Cluster deployment:
-
-        Open Tableau Desktop
         
 
 #### 10  Other References:
