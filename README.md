@@ -65,7 +65,11 @@ To connect tableau desktop to the Drill service on your SE Cluster deployment:
         Update the connection settings
 
 
+
+
 #### Note: The following capabilities are demonstrated from a command line interface, and therefore may not be applicable to all demonstration audiences.        
+
+
 
 #### 5  Query the payments table in MapR-DB JSON, with Spark SQL
 This spark job loads data from MapR-DB JSON (using the MapR-DB Spark connector), into a Spark Dataset (an in-memory RDD optimized for performance), then runs Spark-SQL to query that data
