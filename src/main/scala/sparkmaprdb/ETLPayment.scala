@@ -18,7 +18,7 @@ reads a CSV file. transforms CSV to JSON and writes to MapR-DB JSON
 
 object ETLPayment {
 
-  case class Payment(physician_id: String, date_payment: String, payer: String, amount: Double, physician_specialty: String, nature_of_payment: String, physician_name_first: String, physician_name_middle: String, physician_name_last: String, physician_name_suffix: String, recipient_city: String, recipient_state: String, recipient_zip: String, recipient_country: String) extends Serializable
+  case class Payment(record_id: String, physician_id: String, date_payment: String, payer: String, amount: Double, physician_specialty: String, nature_of_payment: String, physician_name_first: String, physician_name_middle: String, physician_name_last: String, physician_name_suffix: String, recipient_city: String, recipient_state: String, recipient_zip: String, recipient_country: String) extends Serializable
 
   case class PaymentwId(_id: String, physician_id: String, date_payment: String, payer: String, amount: Double, physician_specialty: String, nature_of_payment: String, physician_name_first: String, physician_name_middle: String, physician_name_last: String, physician_name_suffix: String, recipient_city: String, recipient_state: String, recipient_zip: String, recipient_country: String) extends Serializable
 
@@ -42,7 +42,7 @@ object ETLPayment {
   
 
   def createPaymentwId(p: Payment): PaymentwId = {
-    val id = p.physician_id + '_' + p.date_payment + '_' + p._id
+    val id = p.physician_id + '_' + p.date_payment + '_' + p.record_id
     PaymentwId(id, p.physician_id, p.date_payment, p.payer, p.amount, p.physician_specialty, p.nature_of_payment, p.physician_name_first, p.physician_name_middle, p.physician_name_last, p.physician_name_suffix, p.recipient_city, p.recipient_state, p.recipient_zip, p.recipient_country)
   }
 
