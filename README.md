@@ -12,7 +12,7 @@ This example will demonstrate working with MapR-ES, Spark Streaming, MapR-DB JSO
 - Load data into Spark Dataset: Query the MapR-DB JSON document database with Spark-SQL, using the Spark-DB connector
 - Query the MapR-DB document database using Apache Drill. 
 - Query the MapR-DB document database using Java and the OJAI library
-- connect Tableau desktop and run a report that is regularly updated with new data that is streaming into MapR.
+- Tableau Reports: connect Tableau desktop and run a report that is regularly updated with new data that is streaming into MapR.
 
 ## Demo: Step-by-Step
 Important - This readme is a basic explanation and how-to for the technical components of the demo. See Carol's blog post for naritive and architecture illustrations to use for settign context and narrating the demonstration - do not skip that component.
