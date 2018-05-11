@@ -65,3 +65,7 @@ For presentation purposes, you may more than one consumer client manually, from 
 # $ cd /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments
 # $ git pull 
 # $ mvn clean install
+
+GoogleMaps API for Tableau use 
+#API key = AIzaSyCCVEaGnTYrPh394VS9V2X6gSZRSKkOBy0
+#URL to embed  https://www.google.com/maps/embed/v1/view?key=AIzaSyCCVEaGnTYrPh394VS9V2X6gSZRSKkOBy0&center=39.5501,105.7821&zoom=8&maptype=roadmap
