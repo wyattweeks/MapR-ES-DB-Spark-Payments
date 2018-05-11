@@ -1,4 +1,4 @@
-# Heathcare Data - Streaming ETL Pipeline and Data Exploration 
+# Heathcare Data - Streaming ETL Pipeline and Data Exploration on ACA Open Payments Dataset
 ## (Using Spark, JSON, MapR-DB, MapR-ES, Drill, and Tableau)
 This Demonstration was adapted and augmented, from Carol McDonald's original version (see References section below), for deployment and use in the MapR SE CLuster, 
 In addition to porting the code to work on the SE Cluster, Tableau Visualizations, Drill views, and ingesting additional data fields, were added to Carol's original content.
@@ -15,7 +15,8 @@ This example will demonstrate working with MapR-ES, Spark Streaming, MapR-DB JSO
 - Tableau Reports: connect Tableau desktop and run a report that is regularly updated with new data that is streaming into MapR.
 
 ## Demo: Step-by-Step
-Important - This readme is a basic explanation and how-to for the technical components of the demo. See Carol's blog post for naritive and architecture illustrations to use for settign context and narrating the demonstration - do not skip that component.
+Important - This readme is a basic explanation and how-to for the technical components of the demo. 
+See the SE wiki for the full Demo narrative, with architecture diagrams (http://wiki.se.corp.maprtech.com) - do not skip that component.
 
 #### 0  Preparing the environment
 deployment 
