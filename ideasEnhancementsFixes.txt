@@ -1,8 +1,8 @@
 
-to finish project:
+TO FINISH PROJECT: 
 
 - get all queries working in DSR notebook and change demo to work there
-- build naritive from carol's blog and post on SE wiki
+- build naritive from carol's blog and post on SE wiki - showcase multiple states of data (file, stream, table, spark, sql views, all on one cluster)
 - move create view script to mapr-job.sh
 
 
@@ -12,16 +12,11 @@ to finish project:
         - include .zip of .sh script
 
 - add images and narrative from carol's blog to demo / readme doc
+
+--------------------------------------------------------------------
+
 - learn query syntax for db-shell in #6 readme  
-- get this working (add after #3 in the readme)
-    # this part - Spark SQL - is an OPTION to the step above
-    # in a sparate terminal window, start the spark shell with this command
-    # add paramenter to spark version
-    # need to automate the 'copy paste step below'
-    #$ /opt/mapr/spark/spark-2.2.1/bin/spark-shell --master local[2]
-    #copy paste  from the scripts/sparkshell file to query MapR-DB
 # WW - FUTURE enhancement - add Drill query on Mapr-ES
-# get cluster check script to work in demosetup.sh (currently commented out)
 
 ### Git Repo for Project
 MapR-ES-DB-Spark-Payments project has been cloned to /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments (source = git clone http://git.se.corp.maprtech.com/wweeks/MapR-ES-DB-Spark-Payments.git)
