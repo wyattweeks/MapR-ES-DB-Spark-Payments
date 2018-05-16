@@ -14,24 +14,23 @@ This example will demonstrate working with MapR-ES, Spark Streaming, MapR-DB JSO
 - Query the MapR-DB document database using Java and the OJAI library
 - Tableau Reports: connect Tableau desktop and run a report that is regularly updated with new data that is streaming into MapR.
 
-## Demo: Step-by-Step
+# Demo: Step-by-Step
 Important - This readme is a basic explanation and how-to for the technical components of the demo. 
-See the SE wiki for the full Demo narrative, with architecture diagrams (doc under construction..use   * [[https://mapr.com/blog/streaming-data-pipeline-transform-store-explore-healthcare-dataset-mapr-db/|Carol's original blog]] until complete).
+See the SE wiki for the full Demo narrative, with architecture diagrams (doc under construction..use Carol's original blog until complete (https://mapr.com/blog/streaming-data-pipeline-transform-store-explore-healthcare-dataset-mapr-db/).
 
-#### 0  Preparing the environment
+## 0 - Preparing the environment
 You must be connected to the MapR Corporate VPN
-1 - Login to the * [[https://mapr.com/blog/streaming-data-pipeline-transform-store-explore-healthcare-dataset-mapr-db/|AppLariat Site]] to deploy the Demo Cluster
-2 - In the left navbar, click on 'Deploy'
-3 - Go to the 'Healthcare' Applications section and find the 'ACA Open Payments Data: MapR-ES-DB-Spark-Tableau on MapR' release
-4 - define the length of the lease you will need (note: default of 'short term', will stop the cluster every 30min)
-5 - click the arrow to deploy the cluster
-6 - you will be directed to the deployment page.  Once all of the components are up (green) and status is 'Deployed', go to the 'Application Summary' section, and select the link for MCS (e.g. URL on port :8443)
-7 - login to MCS and check the status of the cluster.  you should see volumes named 'files', 'tables', and 'streams', and a table named 'payments'
-8 - On the App Lariat deployment page, find the DNS for your edge node:  locate the edge 'component', and copy the DNS (e.g. edge-XYZ123.se.corp.maprtech.com).  
-9 - In a terminat window, ssh to the edge node/component in your cluster as mapr (e.g. ssh mapr@edge-XYZ123.se.corp.maprtech.com, and continue to next step.
+- Login to the AppLariat Site to deploy the Demo Cluster @ apl.se.corp.maprtech.com
+- In the left navbar, click on 'Deploy'
+- Go to the 'Healthcare' Applications section and find the 'ACA Open Payments Data: MapR-ES-DB-Spark-Tableau on MapR' release
+- define the length of the lease you will need (note: default of 'short term', will stop the cluster every 30min)
+- click the arrow to deploy the cluster
+- you will be directed to the deployment page.  Once all of the components are up (green) and status is 'Deployed', go to the 'Application Summary' section, and select the link for MCS (e.g. URL on port :8443)
+- login to MCS and check the status of the cluster.  you should see volumes named 'files', 'tables', and 'streams', and a table named 'payments'
+- On the App Lariat deployment page, find the DNS for your edge node:  locate the edge 'component', and copy the DNS (e.g. edge-XYZ123.se.corp.maprtech.com).  
+- In a terminal window, ssh to the edge node/component in your cluster as mapr (e.g. ssh mapr@edge-XYZ123.se.corp.maprtech.com, and continue to next step.
 
-
-#### 1  Publish the 'ACA Medicare Open Payments' dataset into MapR-ES (using the MapR Kafka API)
+## 1 - Publish the 'ACA Medicare Open Payments' dataset into MapR-ES (using the MapR Kafka API)
 This simple producer client application reads lines from the payments.csv file and publishes them in their original comma-delimited format, to the MapR Stream:topic @ /streams/paystream:payments.
 
 The paystream:payments stream:topic can be viewed in MCS @ path /mapr/${MAPR_CLUSTER/user/mapr/demo.mapr.com/streams/paystream
@@ -42,7 +41,7 @@ To launch the producer: In a new terminal window, ssh to the cluster edge node a
         java -cp /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar:./target/* streams.MsgProducer
 
 
-#### 2  Read the MapR-ES topic and transform the data with Spark Streaming (using the MapR-ES Kafka API), and write to MapR-DB (using the Spark MapR-DB connector)
+## 2 - Read the MapR-ES topic and transform the data with Spark Streaming (using the MapR-ES Kafka API), and write to MapR-DB (using the Spark MapR-DB connector)
 This Spark-Streaming consumer client application accomplishes three tasks:  First, it reads each incoming message from the MapR stream:topic @ /streams/paystream:payments using the MapR Kafka API. Then, the data is loaded into Spark RDD's (in mempory) and transformed with Spark Streaming, to JSON format. And lastly, each record (JSON array) is written to the 'payments' table in the MapR-DB document database.
  
 The MapR-DB JSON 'payments' table can be viewed in MCS @ path /user/mapr/demo.mapr.com/tables/payments
@@ -52,7 +51,7 @@ To launch the consumer: In a new terminal window, ssh to the cluster edge node a
         $SPARK_PATH/bin/spark-submit --class streaming.SparkKafkaConsumer --master local[2] /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
-#### 3  Create Drill views on the MapR-DB payments table, for use with queries and Tableau Desktop reports that connect to MapR-DB using Drill
+## 3 - Create Drill views on the MapR-DB payments table, for use with queries and Tableau Desktop reports that connect to MapR-DB using Drill
 Create the Drill views to use in Tableau reports.  Tableau-Drill requires views, and does not access the MapR-DB table directly.
 
 Run these from a terminal window (connected by ssh to the cluster edge node as 'mapr')
@@ -64,7 +63,7 @@ In a new terminal window, ssh to the cluster edge node as 'mapr' and:
         !quit
 
 
-#### 4  Connect Tableau and run a report
+## 4 - Connect Tableau and run a report
 This step assumes you have the Tableau desktop installed on your laptop and explains how to connect the desktop client to Drill, running on your SE Cluster deployment.  Tableau trial license keys for SE's are available from the FE team (see References section)
 
 To connect tableau desktop to the Drill service on your SE Cluster deployment:
@@ -74,13 +73,10 @@ To connect tableau desktop to the Drill service on your SE Cluster deployment:
         Update the connection settings
 
 
+## Note: The following steps are demonstrated from a command line interface, and therefore may not be applicable to all demonstration audiences.        
 
 
-#### Note: The following capabilities are demonstrated from a command line interface, and therefore may not be applicable to all demonstration audiences.        
-
-
-
-#### 5  Query the payments table in MapR-DB JSON, with Spark SQL
+## 5 - Query the payments table in MapR-DB JSON, with Spark SQL
 This spark job loads data from MapR-DB JSON (using the MapR-DB Spark connector), into a Spark Dataset (an in-memory RDD optimized for performance), then runs Spark-SQL to query that data
 
 In a new terminal window, ssh to the cluster edge node as 'mapr' and:
@@ -88,7 +84,7 @@ In a new terminal window, ssh to the cluster edge node as 'mapr' and:
         $SPARK_PATH/bin/spark-submit --class sparkmaprdb.QueryPayment --master local[2] /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
-#### 6  Query the MapR-DB document database using Apache Drill (via JDBC)
+## 6 - Query the MapR-DB document database using Apache Drill (via JDBC)
 Apache Drill is an open source, low-latency query engine for big data that delivers interactive SQL analytics at petabyte scale. Drill provides a massively parallel processing execution engine, built to perform distributed query processing across the various nodes in a cluster.
 
 Run these queries from a terminal window (connected by ssh to the cluster edge node as 'mapr') and type 'sqlline' to enter the drill shell.
@@ -127,7 +123,7 @@ To exit Drill shell:
         !quit
 
 
-#### 7  Query the MapR-DB document database using Java and the OJAI library
+## 7 - Query the MapR-DB document database using Java and the OJAI library
 OJAI, is the opes source Java API used to access MapR-DB JSON.  It leverages the same query engine as MapR-DB Shell and Apache Drill to query the payments table.
 
 To Query the MapR-DB payments table using OJAI:
@@ -135,7 +131,7 @@ To Query the MapR-DB payments table using OJAI:
         $SPARK_PATH/bin/spark-submit --class maprdb.OJAI_SimpleQuery --master local[2] --jars /opt/mapr/drill/jars/jdbc-driver/drill-jdbc-all-1.11.0.jar /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
-#### 8  Query the MapR-DB payments table using the MapR-DB shell, dbshell
+## 8 - Query the MapR-DB payments table using the MapR-DB shell, dbshell
 Run these queries from a terminal window (connected by ssh to the cluster edge node as 'mapr')
 
 To start MapR-DB shell:
@@ -168,7 +164,7 @@ To exit MapR-DB shell:
         ctrl-C
 
 
-#### 9  Adding a secondary index to the payments JSON table, to improve query performance
+## 9 - Adding a secondary index to the payments JSON table, to improve query performance
 Run these queries from a terminal window (connected by ssh to the cluster edge node as 'mapr')
 
 Run db-shell queries, without a secondary index on the payments table, and note query performance:
@@ -192,7 +188,7 @@ Again,run db-shell queries on payments table, and compare with query performance
         ctrl-c
         
 
-#### 10  Other References:
+## 10 - Other References:
 
 [Carol's Blog](https://mapr.com/blog/streaming-data-pipeline-transform-store-explore-healthcare-dataset-mapr-db/) from which this Demo originated.  Thanks Carol!
 
@@ -206,4 +202,4 @@ Again,run db-shell queries on payments table, and compare with query performance
 
 [MapR-DB Change Data Capture](https://github.com/mapr-demos/mapr-db-cdc-sample) to capture database events such as insert, update, delete and react to this events.
 
-#### End
+## End
