@@ -86,7 +86,7 @@ To connect tableau desktop to the Drill service on your SE Cluster deployment:
                 This report is refreshed automatically, so that new data streaming into the MapR-DB payments table will be displayed on the Map report
 
 
-## Note: The following steps are demonstrated from a command line interface, and therefore may not be applicable to all demonstration audiences.        
+# Note: The following steps are demonstrated from a command line interface, and therefore may not be applicable to all demonstration audiences.        
 
 
 ## 4 - Query the payments table in MapR-DB JSON, with Spark SQL
@@ -151,7 +151,7 @@ To start MapR-DB shell:
 
         /opt/mapr/bin/mapr dbshell
         
-Set the environment for your session (To learn more about the various commands, run help or help <command> , for example help insert):
+Set the environment for your session (To learn more about the various commands, run help):
 
         jsonoptions --pretty true --withtags false
 
