@@ -201,7 +201,16 @@ Again,run db-shell queries on payments table, and compare with query performance
         ctrl-c
         
 
-## References:
+## References and Other Information:
+
+to get stream info:
+
+        curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/stream/info?path=/user/mapr/demo.mapr.com/streams/paystream" | python -m json.tool
+
+to get the topic info for the stream:
+
+        curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/stream/topic/info?path=/user/mapr/demo.mapr.com/streams/paystream&topic=payments" | python -m json.tool
+
 [Carol's Blog](https://mapr.com/blog/streaming-data-pipeline-transform-store-explore-healthcare-dataset-mapr-db/) from which this Demo originated.  Thanks Carol!
 
 [SE private Git Repository for this Demo](http://git.se.corp.maprtech.com/wweeks/MapR-ES-DB-Spark-Payments.git) , the master repo for this SE Cluster version of the Demo.
