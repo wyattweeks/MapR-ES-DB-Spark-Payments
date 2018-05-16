@@ -81,7 +81,7 @@ To connect tableau desktop to the Drill service on your SE Cluster deployment:
                 username: mapr
                 password: maprmapr (default)
 
-- Once connected, refresh the connection, select 'Sheet 1' in the Tableau workbook, and enter 'presentation view' to demonstrate the report
+- Once connected, refresh the connection, select the 'Payor' sheet in the Tableau workbook, and enter 'presentation view' to demonstrate the report
 
                 This report is refreshed automatically, so that new data streaming into the MapR-DB payments table will be displayed on the Map report
 
