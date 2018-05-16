@@ -16,10 +16,19 @@ This example will demonstrate working with MapR-ES, Spark Streaming, MapR-DB JSO
 
 ## Demo: Step-by-Step
 Important - This readme is a basic explanation and how-to for the technical components of the demo. 
-See the SE wiki for the full Demo narrative, with architecture diagrams (http://wiki.se.corp.maprtech.com) - do not skip that component.
+See the SE wiki for the full Demo narrative, with architecture diagrams (doc under construction..use   * [[https://mapr.com/blog/streaming-data-pipeline-transform-store-explore-healthcare-dataset-mapr-db/|Carol's original blog]] until complete).
 
 #### 0  Preparing the environment
-deployment steps in Applariat
+You must be connected to the MapR Corporate VPN
+1 - Login to the * [[https://mapr.com/blog/streaming-data-pipeline-transform-store-explore-healthcare-dataset-mapr-db/|AppLariat Site]] to deploy the Demo Cluster
+2 - In the left navbar, click on 'Deploy'
+3 - Go to the 'Healthcare' Applications section and find the 'ACA Open Payments Data: MapR-ES-DB-Spark-Tableau on MapR' release
+4 - define the length of the lease you will need (note: default of 'short term', will stop the cluster every 30min)
+5 - click the arrow to deploy the cluster
+6 - you will be directed to the deployment page.  Once all of the components are up (green) and status is 'Deployed', go to the 'Application Summary' section, and select the link for MCS (e.g. URL on port :8443)
+7 - login to MCS and check the status of the cluster.  you should see volumes named 'files', 'tables', and 'streams', and a table named 'payments'
+8 - On the App Lariat deployment page, find the DNS for your edge node:  locate the edge 'component', and copy the DNS (e.g. edge-XYZ123.se.corp.maprtech.com).  
+9 - In a terminat window, ssh to the edge node/component in your cluster as mapr (e.g. ssh mapr@edge-XYZ123.se.corp.maprtech.com, and continue to next step.
 
 
 #### 1  Publish the 'ACA Medicare Open Payments' dataset into MapR-ES (using the MapR Kafka API)
