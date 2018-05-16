@@ -16,7 +16,7 @@ This example will demonstrate working with MapR-ES, Spark Streaming, MapR-DB JSO
 
 # Demo: Step-by-Step
 Important - This readme is a basic explanation and how-to for the technical components of the demo. 
-See the SE wiki for the full Demo narrative, with architecture diagrams (doc under construction..use Carol's original blog until complete (https://mapr.com/blog/streaming-data-pipeline-transform-store-explore-healthcare-dataset-mapr-db/).
+See the SE wiki for the full Demo narrative, with architecture diagrams (doc under construction..use Carol's original blog until complete (see link in references section below).
 
 ## 0 - Preparing the environment
 You must be connected to the MapR Corporate VPN
@@ -26,9 +26,23 @@ You must be connected to the MapR Corporate VPN
 - define the length of the lease you will need (note: default of 'short term', will stop the cluster every 30min)
 - click the arrow to deploy the cluster
 - you will be directed to the deployment page.  Once all of the components are up (green) and status is 'Deployed', go to the 'Application Summary' section, and select the link for MCS (e.g. URL on port :8443)
-- login to MCS and check the status of the cluster.  you should see volumes named 'files', 'tables', and 'streams', and a table named 'payments'
-- On the App Lariat deployment page, find the DNS for your edge node:  locate the edge 'component', and copy the DNS (e.g. edge-XYZ123.se.corp.maprtech.com).  
-- In a terminal window, ssh to the edge node/component in your cluster as mapr (e.g. ssh mapr@edge-XYZ123.se.corp.maprtech.com, and continue to next step.
+- login to MCS and check the status of the cluster.  you should see volumes named 'files', 'tables', and 'streams', and a table named 'payments' 
+
+- Copy the pre-built Tableau report, to your desktop.  From a terminal window: 
+
+        scp mapr@edge-XYZ123.se.corp.maprtech.com:/public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/tableau/Healthcare_Payments_Map_Report.twb ~/Desktop/Healthcare_Payments_Map_Report.twb
+
+- On the App Lariat deployment page, find the DNS for your edge node:  locate the edge 'component', and copy the DNS (e.g. edge-XYZ123.se.corp.maprtech.com), then ssh to your edge node as 'mapr': (default pwd is 'maprmapr')
+
+        ssh mapr@mapr@edge-XYZ123.se.corp.maprtech.com
+
+- Create Drill views on the MapR-DB payments table, for use with queries and Tableau Desktop reports that connect to MapR-DB using Drill
+Create the Drill views to use in Tableau reports.  Tableau-Drill requires views, and does not access the MapR-DB table directly. From your terminal window connected to the edge node as 'mapr', issue the following 3 commands in sequence:
+ 
+        sqlline
+        !run /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/createDrillViews.sql
+        !quit
+
 
 ## 1 - Publish the 'ACA Medicare Open Payments' dataset into MapR-ES (using the MapR Kafka API)
 This simple producer client application reads lines from the payments.csv file and publishes them in their original comma-delimited format, to the MapR Stream:topic @ /streams/paystream:payments.
@@ -51,26 +65,25 @@ To launch the consumer: In a new terminal window, ssh to the cluster edge node a
         $SPARK_PATH/bin/spark-submit --class streaming.SparkKafkaConsumer --master local[2] /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/target/mapr-es-db-spark-payment-1.0.jar
 
 
-## 3 - Create Drill views on the MapR-DB payments table, for use with queries and Tableau Desktop reports that connect to MapR-DB using Drill
-Create the Drill views to use in Tableau reports.  Tableau-Drill requires views, and does not access the MapR-DB table directly.
-
-Run these from a terminal window (connected by ssh to the cluster edge node as 'mapr')
-        
-In a new terminal window, ssh to the cluster edge node as 'mapr' and:
- 
-        sqlline
-        !run /public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/createDrillViews.sql
-        !quit
-
-
-## 4 - Connect Tableau and run a report
-This step assumes you have the Tableau desktop installed on your laptop and explains how to connect the desktop client to Drill, running on your SE Cluster deployment.  Tableau trial license keys for SE's are available from the FE team (see References section)
+## 4 - Connect Tableau Desktop to the cluster and run a report
+This step assumes you have the Tableau desktop installed on your laptop and explains how to direct-connect the desktop client to the Apache Drill Drillbit on the cluster. (Tableau can also connect to Zookeeper, for load-balancing and failover). Tableau trial license keys for SE's are available from the FE team (see References section)
 
 To connect tableau desktop to the Drill service on your SE Cluster deployment:
+- Open Tableau Desktop Application
+- Open the 'Healthcare_Payments_Map_Report.twb' report from your desktop (created in 'preparing the evironment' section)
+- When the report opens, you will be prompted for a password to connect to the cluster: 
+        click on 'Edit Connection' in this window, to edit the data source and connect to your cluster:
+        
+                connect: Direct
+                server: External IP address obtained from app lariat 'mdn' component of your cluster deployment
+                port: 3110
+                authentication: Username and Password
+                username: mapr
+                password: maprmapr (default)
 
-        Open Tableau Desktop
-        Open the saved report
-        Update the connection settings
+- Once connected, refresh the connection, select 'Sheet 1' in the Tableau workbook, and enter 'presentation view' to demonstrate the report
+
+                This report is refreshed automatically, so that new data streaming into the MapR-DB payments table will be displayed on the Map report
 
 
 ## Note: The following steps are demonstrated from a command line interface, and therefore may not be applicable to all demonstration audiences.        
@@ -188,8 +201,7 @@ Again,run db-shell queries on payments table, and compare with query performance
         ctrl-c
         
 
-## 10 - Other References:
-
+## 10 - References:
 [Carol's Blog](https://mapr.com/blog/streaming-data-pipeline-transform-store-explore-healthcare-dataset-mapr-db/) from which this Demo originated.  Thanks Carol!
 
 [SE private Git Repository for this Demo](http://git.se.corp.maprtech.com/wweeks/MapR-ES-DB-Spark-Payments.git) , the master repo for this SE Cluster version of the Demo.
