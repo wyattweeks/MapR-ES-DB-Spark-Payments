@@ -51,7 +51,7 @@ public class MsgConsumer {
 
                 }
             }
-            waitTime = waitTime - 1000; // decrease time for loop
+            // waitTime = waitTime - 1000; // decrease time for loop
         }
         //consumer.close();
         //System.out.println("Total number of messages received: " + numberOfMsgsReceived);
