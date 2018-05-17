@@ -46,7 +46,7 @@ public class MsgProducer {
             producer.send(rec);
             System.out.println("Sent message: " + line);
             line = reader.readLine();
-            Thread.sleep(600l);
+            // Thread.sleep(600l); 
 
         }
 
