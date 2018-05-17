@@ -121,7 +121,7 @@ object SparkKafkaConsumer {
     val pDStream: DStream[PaymentwId] = valuesDStream.map(parsePaymentwID)
 
     // pDStream.print(3)
-    pDStream.print(3)
+    pDStream.print
     pDStream.saveToMapRDB(tableName, createTable=false, bulkInsert=true, idFieldPath = "_id")
 
     ssc.start()

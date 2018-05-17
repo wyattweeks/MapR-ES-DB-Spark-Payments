@@ -53,9 +53,9 @@ public class MsgConsumer {
             }
             // waitTime = waitTime - 1000; // decrease time for loop
         }
-        consumer.close(); // uncommented WW 5/17
-        System.out.println("Total number of messages received: " + numberOfMsgsReceived);  // uncommented WW 5/17
-         System.out.println("All done.");  // uncommented WW 5/17
+        // consumer.close();
+        // System.out.println("Total number of messages received: " + numberOfMsgsReceived);
+        //  System.out.println("All done.");
 
     }
 
