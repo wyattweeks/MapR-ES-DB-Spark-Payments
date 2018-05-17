@@ -18,7 +18,7 @@ This example will demonstrate working with MapR-ES, Spark Streaming, MapR-DB JSO
 Important - This readme is a basic explanation and how-to for the technical components of the demo. 
 See the SE wiki for the full Demo narrative, with architecture diagrams (doc under construction..use Carol's original blog until complete (see link in references section below).
 
-## 0 - Preparing the environment
+## 0 - Preparing the environment in advance of your demo (<15min)
 You must be connected to the MapR Corporate VPN
 - Login to the AppLariat Site to deploy the Demo Cluster @ apl.se.corp.maprtech.com
 - In the left navbar, click on 'Deploy'
@@ -45,7 +45,7 @@ Create the Drill views to use in Tableau reports.  Tableau-Drill requires views,
 
 
 ## 1 - Publish the 'ACA Medicare Open Payments' dataset into MapR-ES (using the MapR Kafka API)
-This simple producer client application reads lines from the payments.csv file and publishes them in their original comma-delimited format, to the MapR Stream:topic @ /streams/paystream:payments.
+Show this simple producer client application reading 30,000 lines from the payments.csv file in seconds. Messages are published in their original comma-delimited format, to the MapR Stream:topic @ /streams/paystream:payments.
 
 The paystream:payments stream:topic can be viewed in MCS @ path /mapr/${MAPR_CLUSTER/user/mapr/demo.mapr.com/streams/paystream
         
@@ -56,7 +56,9 @@ To launch the producer: In a new terminal window, ssh to the cluster edge node a
 
 
 ## 2 - Read the MapR-ES topic and transform the data with Spark Streaming (using the MapR-ES Kafka API), and write to MapR-DB (using the Spark MapR-DB connector)
-This Spark-Streaming consumer client application accomplishes three tasks:  First, it reads each incoming message from the MapR stream:topic @ /streams/paystream:payments using the MapR Kafka API. Then, the data is loaded into Spark RDD's (in mempory) and transformed with Spark Streaming, to JSON format. And lastly, each record (JSON array) is written to the 'payments' table in the MapR-DB document database.
+Show this Spark-Streaming consumer client application reading 30,000 messages from the MapR stream, transforming them to JSON, and writing them to MapR-DB, in seconds.  
+
+This client application accomplishes three tasks:  First, it reads each incoming message from the MapR stream:topic @ /streams/paystream:payments using the MapR Kafka API. Then, the data is loaded into Spark RDD's (in mempory) and transformed with Spark Streaming, to JSON format. And lastly, each record (JSON array) is written to the 'payments' table in the MapR-DB document database.
  
 The MapR-DB JSON 'payments' table can be viewed in MCS @ path /user/mapr/demo.mapr.com/tables/payments
 
@@ -66,6 +68,8 @@ To launch the consumer: In a new terminal window, ssh to the cluster edge node a
 
 
 ## 3 - Connect Tableau Desktop to the cluster and run a report
+Show the simplicity of connecting to tableau and running a saved report; one that is updated automatically, so that new data streaming into the MapR-DB payments table will be displayed on the Map.
+
 This step assumes you have the Tableau desktop installed on your laptop and explains how to direct-connect the desktop client to the Apache Drill Drillbit on the cluster. (Tableau can also connect to Zookeeper, for load-balancing and failover). Tableau trial license keys for SE's are available from the FE team (see References section)
 
 To connect tableau desktop to the Drill service on your SE Cluster deployment:
@@ -82,8 +86,6 @@ To connect tableau desktop to the Drill service on your SE Cluster deployment:
                 password: maprmapr (default)
 
 - Once connected, refresh the connection, select the 'Payor' sheet in the Tableau workbook, and enter 'presentation view' to demonstrate the report
-
-                This report is refreshed automatically, so that new data streaming into the MapR-DB payments table will be displayed on the Map report
 
 
 # Note: The following steps are demonstrated from a command line interface, and therefore may not be applicable to all demonstration audiences.        
