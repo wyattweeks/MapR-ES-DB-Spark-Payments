@@ -20,7 +20,7 @@ See the SE wiki for the full Demo narrative, with architecture diagrams (doc und
 
 ## 0 - Preparing the environment in advance of your demo (<15min)
 You must be connected to the MapR Corporate VPN
-- Login to the AppLariat Site to deploy the Demo Cluster @ apl.se.corp.maprtech.com
+- Login to the AppLariat Site to deploy the Demo Cluster @ 
 - In the left navbar, click on 'Deploy'
 - Go to the 'Healthcare' Applications section and find the 'ACA Open Payments Data: MapR-ES-DB-Spark-Tableau on MapR' release
 - define the length of the lease you will need (note: default of 'short term', will stop the cluster every 30min)
@@ -30,11 +30,11 @@ You must be connected to the MapR Corporate VPN
 
 - Copy the pre-built Tableau report, to your desktop.  From a terminal window: 
 
-        scp mapr@edge-XYZ123.se.corp.maprtech.com:/public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/tableau/Healthcare_Payments_Map_Report.twb ~/Desktop/Healthcare_Payments_Map_Report.twb
+        scp mapr@URL:/public_data/demos_healthcare/MapR-ES-DB-Spark-Payments/tableau/Healthcare_Payments_Map_Report.twb ~/Desktop/Healthcare_Payments_Map_Report.twb
 
-- On the App Lariat deployment page, find the DNS for your edge node:  locate the edge 'component', and copy the DNS (e.g. edge-XYZ123.se.corp.maprtech.com), then ssh to your edge node as 'mapr': (default pwd is 'maprmapr')
+- On the App Lariat deployment page, find the DNS for your edge node:  locate the edge 'component', and copy the DNS (e.g. URL), then ssh to your edge node as 'mapr': (default pwd is 'maprmapr')
 
-        ssh mapr@mapr@edge-XYZ123.se.corp.maprtech.com
+        ssh mapr@URL
 
 - Create Drill views on the MapR-DB payments table, for use with queries and Tableau Desktop reports that connect to MapR-DB using Drill
 Create the Drill views to use in Tableau reports.  Tableau-Drill requires views, and does not access the MapR-DB table directly. From your terminal window connected to the edge node as 'mapr', issue the following 3 commands in sequence:
@@ -214,10 +214,6 @@ to get the topic info for the stream:
         curl -sSk -X POST -u ${MAPR_ADMIN}:${MAPR_ADMIN_PASSWORD} "${MCS_URL}/rest/stream/topic/info?path=/user/mapr/demo.mapr.com/streams/paystream&topic=payments" | python -m json.tool
 
 [Carol's Blog](https://mapr.com/blog/streaming-data-pipeline-transform-store-explore-healthcare-dataset-mapr-db/) from which this Demo originated.  Thanks Carol!
-
-[SE private Git Repository for this Demo](http://git.se.corp.maprtech.com/wweeks/MapR-ES-DB-Spark-Payments.git) , the master repo for this SE Cluster version of the Demo.
-
-[Tableau Desktop Licenses for SE's](https://docs.google.com/spreadsheets/d/1A1OGD0mY-eLSBM7hgU7eRx45PXt4oohRVv6493IdJJM/edit#gid=193582544) , as tracked by the FE team.
 
 [mapr-db-60-getting-started](https://github.com/mapr-demos/mapr-db-60-getting-started) to learn Discover how to use DB Shell, Drill and OJAI to query and update documents, but also how to use indexes.
 
